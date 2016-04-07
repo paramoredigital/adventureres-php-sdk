@@ -1,0 +1,48 @@
+{
+  "name": "adventureres/php-sdk-v1",
+  "description": "AdventureRes SDK for PHP",
+  "keywords": ["AdventureRes", "sdk"],
+  "type": "library",
+  "homepage": "https://github.com/paramoredigital",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "AdventureRes",
+      "homepage": "http://www.adventureres.com/",
+      "role": "Owner"
+    },
+    {
+      "name": "Keith Ferguson",
+      "email": "keith@adventureres.com",
+      "role": "Developer - API"
+    },
+    {
+      "name": "Ben Wilkins",
+      "email": "bwilkins@paramoredigital.com",
+      "role": "Developer - SDK"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "mockery/mockery": "~0.8",
+    "guzzlehttp/guzzle": "~5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AdventureRes\\": "src/AdventureRes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AdventureRes\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "5.x-dev"
+    }
+  }
+}
