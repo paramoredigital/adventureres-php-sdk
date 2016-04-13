@@ -23,7 +23,7 @@ interface AdventureResHttpClientInterface
      * @param string $body The body of the request.
      * @param array $headers The request headers.
      * @param int $timeOut The timeout in seconds for the request.
-     * @return string|boolean Raw response from the server.
+     * @return \AdventureRes\Http\ApiRawResponse Raw response from the server.
      * @throws \AdventureRes\Exceptions\AdventureResSDKException
      */
     public function send($url, $method, $body, array $headers, $timeOut);
