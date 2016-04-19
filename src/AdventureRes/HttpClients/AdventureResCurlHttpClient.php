@@ -85,7 +85,6 @@ class AdventureResCurlHttpClient extends AbstractAdventureResBase implements Adv
     {
         $options = [
           CURLOPT_CUSTOMREQUEST  => $method,
-          CURLOPT_HTTPHEADER     => self::compileRequestHeaders($headers),
           CURLOPT_URL            => $url,
           CURLOPT_CONNECTTIMEOUT => 10,
           CURLOPT_TIMEOUT        => $timeOut,
@@ -97,8 +96,16 @@ class AdventureResCurlHttpClient extends AbstractAdventureResBase implements Adv
         ];
 
         if ($method !== "GET") {
+            $mergedHeaders               = [
+                'Content-Type'   => 'application/json',
+                'Content-Length' => strlen($body)
+              ] + (array)$headers;
             $options[CURLOPT_POSTFIELDS] = $body;
+        } else {
+            $mergedHeaders = $headers;
         }
+
+        $options[CURLOPT_HTTPHEADER] = self::compileRequestHeaders($mergedHeaders);
 
         $this->adventureResCurl->init();
         $this->adventureResCurl->setoptArray($options);
