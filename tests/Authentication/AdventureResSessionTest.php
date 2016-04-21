@@ -4,7 +4,6 @@ namespace AdventureRes\Tests\Authentication;
 
 use AdventureRes\AdventureResApp;
 use Mockery as m;
-use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
 use AdventureRes\Authentication\AdventureResSession;
@@ -36,8 +35,43 @@ class AdventureResSessionTest extends AbstractHttpClientTest
 
     public function testCanGetSessionIdFromPersistentData()
     {
+        $this->curlMock
+          ->shouldReceive('init')
+          ->once()
+          ->andReturn(null);
+        $this->curlMock
+          ->shouldReceive('setoptArray')
+          ->once()
+          ->andReturn(null);
+        $this->curlMock
+          ->shouldReceive('exec')
+          ->once()
+          ->andReturn($this->fakeRawHeader . $this->fakeRawBodySessionValid);
+        $this->curlMock
+          ->shouldReceive('errno')
+          ->once()
+          ->andReturn(null);
+        $this->curlMock
+          ->shouldReceive('getinfo')
+          ->with(CURLINFO_HEADER_SIZE)
+          ->once()
+          ->andReturn(mb_strlen($this->fakeRawHeader));
+        $this->curlMock
+          ->shouldReceive('getinfo')
+          ->with(CURLINFO_HTTP_CODE)
+          ->once()
+          ->andReturn(200);
+        $this->curlMock
+          ->shouldReceive('version')
+          ->once()
+          ->andReturn(['version_number' => self::CURL_VERSION_STABLE]);
+        $this->curlMock
+          ->shouldReceive('close')
+          ->once()
+          ->andReturn(null);
+
         $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
-        $session = new AdventureResSession($this->app);
+        $session = new AdventureResSession($this->app, $this->curlClient);
 
         $handler->set(AdventureResSession::SESSION_ID_KEY, 'foo');
 
@@ -55,7 +89,7 @@ class AdventureResSessionTest extends AbstractHttpClientTest
     }
 
     /**
-     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     * @expectedException \AdventureRes\Exceptions\AdventureResResponseException
      */
     public function testAuthWithInvalidCredentialsThrowsException()
     {
@@ -137,5 +171,49 @@ class AdventureResSessionTest extends AbstractHttpClientTest
         $session = new AdventureResSession($this->app, $this->curlClient);
 
         $this->assertEquals('sampleSessionId', $session->getSessionId());
+    }
+
+    public function testIsSessionValid()
+    {
+        $this->curlMock
+          ->shouldReceive('init')
+          ->once()
+          ->andReturn(null);
+        $this->curlMock
+          ->shouldReceive('setoptArray')
+          ->once()
+          ->andReturn(null);
+        $this->curlMock
+          ->shouldReceive('exec')
+          ->twice()
+          ->andReturn($this->fakeRawHeader . $this->fakeRawBodySessionValid,
+            $this->fakeRawHeader . $this->fakeRawBodySessionInvalid);
+        $this->curlMock
+          ->shouldReceive('errno')
+          ->once()
+          ->andReturn(null);
+        $this->curlMock
+          ->shouldReceive('getinfo')
+          ->with(CURLINFO_HEADER_SIZE)
+          ->once()
+          ->andReturn(mb_strlen($this->fakeRawHeader));
+        $this->curlMock
+          ->shouldReceive('getinfo')
+          ->with(CURLINFO_HTTP_CODE)
+          ->once()
+          ->andReturn(200);
+        $this->curlMock
+          ->shouldReceive('version')
+          ->once()
+          ->andReturn(['version_number' => self::CURL_VERSION_STABLE]);
+        $this->curlMock
+          ->shouldReceive('close')
+          ->once()
+          ->andReturn(null);
+
+        $session = new AdventureResSession($this->app, $this->curlClient);
+
+        $this->assertTrue($session->isValidSessionId('foo'));
+        $this->assertFalse($session->isValidSessionId('bar'));
     }
 }

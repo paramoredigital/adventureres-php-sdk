@@ -14,7 +14,6 @@ use AdventureRes\AdventureResClient;
 use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Http\AdventureResRequest;
 use AdventureRes\Http\AdventureResResponse;
-use AdventureRes\Http\ApiRawResponse;
 use AdventureRes\HttpClients\AdventureResHttpClientInterface;
 use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
 
@@ -66,7 +65,6 @@ class AdventureResSession extends AbstractAdventureResBase
      */
     public function __construct($app, AdventureResHttpClientInterface $client = null)
     {
-        // TODO: Instantiate a client with the HTTP client
         $this->setApp($app);
         $this->setHttpClient($client);
         $this->client = new AdventureResClient($this->httpClient);
@@ -98,10 +96,27 @@ class AdventureResSession extends AbstractAdventureResBase
         return $this->sessionId;
     }
 
-    public static function isValidSessionId($sessionId)
+    /**
+     * @param string $sessionId
+     * @return bool
+     * @throws AdventureResSDKException
+     */
+    public function isValidSessionId($sessionId)
     {
-        // TODO
-        return true;
+        $params  = ['Session' => $sessionId];
+        $request = new AdventureResRequest(
+          $this->app,
+          self::API_SERVICE,
+          'POST',
+          self::VALID_SESSION_ENDPOINT,
+          json_encode($params)
+        );
+
+        /** @var AdventureResResponse $response */
+        $response = $this->client->sendRequest($request);
+        $body     = $response->getDecodedBody();
+
+        return $body[0]->ValidSession;
     }
 
     /**
@@ -122,7 +137,7 @@ class AdventureResSession extends AbstractAdventureResBase
         $dataHandler     = new AdventureResSessionPersistentDataHandler();
         $this->sessionId = $dataHandler->get(self::SESSION_ID_KEY);
 
-        if (!$this->sessionId || !self::isValidSessionId($this->sessionId)) {
+        if (!$this->sessionId || !$this->isValidSessionId($this->sessionId)) {
             $this->clearSession();
             $this->sessionId = $this->authenticate();
         }
@@ -141,8 +156,13 @@ class AdventureResSession extends AbstractAdventureResBase
           'Password' => $this->app->getPassword(),
           'UserName' => $this->app->getUsername()
         ];
-        $request = new AdventureResRequest($this->app, self::API_SERVICE, 'POST', self::LOGIN_ENDPOINT,
-          json_encode($params));
+        $request = new AdventureResRequest(
+          $this->app,
+          self::API_SERVICE,
+          'POST',
+          self::LOGIN_ENDPOINT,
+          json_encode($params)
+        );
 
         /** @var AdventureResResponse $response */
         $response = $this->client->sendRequest($request);
