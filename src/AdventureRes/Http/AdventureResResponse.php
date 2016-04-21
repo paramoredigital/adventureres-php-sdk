@@ -9,7 +9,7 @@
 namespace AdventureRes\Http;
 
 use AdventureRes\AbstractAdventureResBase;
-use AdventureRes\Exceptions\AdventureResSDKException;
+use AdventureRes\Exceptions\AdventureResResponseException;
 
 /**
  * Class AdventureResResponse
@@ -39,7 +39,7 @@ class AdventureResResponse extends AbstractAdventureResBase
      */
     protected $request;
     /**
-     * @var AdventureResSDKException The exception thrown by this request.
+     * @var AdventureResResponseException The exception thrown by this request.
      */
     protected $thrownException;
 
@@ -56,7 +56,7 @@ class AdventureResResponse extends AbstractAdventureResBase
         $this->request        = $request;
         $this->body           = $body;
         $this->httpStatusCode = $httpStatusCode;
-        $this->headers        = $headers; // TODO: Parse headers into an array
+        $this->headers        = is_array($headers) ? $headers : $this->extractHeaders($headers);
 
         $this->decodeBody();
     }
@@ -115,7 +115,6 @@ class AdventureResResponse extends AbstractAdventureResBase
      * Returns true if the API returned an error message.
      *
      * @return boolean
-     * @todo
      */
     public function isError()
     {
@@ -125,7 +124,7 @@ class AdventureResResponse extends AbstractAdventureResBase
     /**
      * Throws the exception.
      *
-     * @throws AdventureResSDKException
+     * @throws AdventureResResponseException
      */
     public function throwException()
     {
@@ -134,19 +133,16 @@ class AdventureResResponse extends AbstractAdventureResBase
 
     /**
      * Instantiates an exception to be thrown later.
-     *
-     * @todo
      */
     public function makeException()
     {
-        //        $this->thrownException = AdventureResResponseException::create($this);
-        $this->thrownException = new AdventureResSDKException('Error'); // TODO: Extract to separate exception.
+        $this->thrownException = new AdventureResResponseException($this->body);
     }
 
     /**
      * Returns the exception that was thrown for this request.
      *
-     * @return AdventureResSDKException|null
+     * @return AdventureResResponseException|null
      */
     public function getThrownException()
     {
@@ -154,7 +150,9 @@ class AdventureResResponse extends AbstractAdventureResBase
     }
 
     /**
-     * @todo
+     * Formats the response body into a usable format.
+     *
+     * @return mixed
      */
     public function decodeBody()
     {
@@ -182,12 +180,25 @@ class AdventureResResponse extends AbstractAdventureResBase
     }
 
     /**
-     * Convenience method for retrieving the session used in this response.
-     *
-     * @todo Should return info about the session used in this response
+     * Converts raw headers to an array.
+
+*
+     * @param $rawHeaders
      */
-    public function getSessionInfo()
-    {}
+    private function extractHeaders($rawHeaders)
+    {
+        $rawHeaders       = str_replace("\r\n", "\n", $rawHeaders);
+        $headerCollection = explode("\n\n", trim($rawHeaders));
+        $rawHeader        = array_pop($headerCollection);
+        $headerComponents = explode("\n", $rawHeader);
+
+        foreach ($headerComponents as $line) {
+            if (strpos($line, ': ') !== false) {
+                list($key, $value) = explode(': ', $line);
+                $this->headers[$key] = $value;
+            }
+        }
+    }
 }
 
 /* End of AdventureResResponse.php */

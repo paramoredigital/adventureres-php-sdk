@@ -65,7 +65,7 @@ class AdventureResClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     * @expectedException \AdventureRes\Exceptions\AdventureResResponseException
      */
     public function testThrowsExceptionIfResponseHasError()
     {
