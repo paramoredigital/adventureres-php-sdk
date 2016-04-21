@@ -8,6 +8,7 @@
 
 namespace AdventureRes\PersistentData;
 
+use AdventureRes\AbstractAdventureResBase;
 use AdventureRes\Exceptions\AdventureResSDKException;
 
 /**
@@ -15,7 +16,7 @@ use AdventureRes\Exceptions\AdventureResSDKException;
  *
  * @package AdventureRes
  */
-class AdventureResSessionPersistentDataHandler
+class AdventureResSessionPersistentDataHandler extends AbstractAdventureResBase
 {
     /**
      * @var string Prefix to use for session variables.
@@ -26,7 +27,7 @@ class AdventureResSessionPersistentDataHandler
      * @param boolean $shouldCheckSessionStatus
      * @throws AdventureResSDKException
      */
-    public function __construct($shouldCheckSessionStatus = true)
+    public function __construct($shouldCheckSessionStatus = false)
     {
         if ($shouldCheckSessionStatus && session_status() !== PHP_SESSION_ACTIVE) {
             throw new AdventureResSDKException(
@@ -57,6 +58,16 @@ class AdventureResSessionPersistentDataHandler
     public function set($key, $value)
     {
         $_SESSION[$this->sessionPrefix . $key] = $value;
+    }
+
+    /**
+     * Deletes a variable from the PHP Session.
+     *
+     * @param $key
+     */
+    public function delete($key)
+    {
+        unset($_SESSION[$this->sessionPrefix . $key]);
     }
 }
 
