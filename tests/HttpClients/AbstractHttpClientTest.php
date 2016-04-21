@@ -39,5 +39,14 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyLoginInvalid = '{"LoginResult": "[{\"Session\":\"\",\"ValidSession\":false,\"Result\":\"ERROR: INVALID LOGIN\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodySessionValid = '{"ValidSessionResult": "[{\"Session\":\"sampleSessionId\",\"ValidSession\":true,\"Result\":\"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodySessionInvalid = '{"ValidSessionResult": "[{\"Session\":\"sampleSessionId\",\"ValidSession\":false,\"Result\":\"SUCCESS\"}]"
+}';
 
 }
