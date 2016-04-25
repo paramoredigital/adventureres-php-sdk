@@ -17,13 +17,11 @@ class AdventureResCurlHttpClientTest extends AbstractHttpClientTest
      */
     protected $curlClient;
 
-    const CURL_VERSION_STABLE = 0x072400;
-    const CURL_VERSION_BUGGY = 0x071400;
-
     public function setUp()
     {
         $this->curlMock   = m::mock('AdventureRes\HttpClients\AdventureResCurl');
         $this->curlClient = new AdventureResCurlHttpClient($this->curlMock);
+        parent::setUp();
     }
 
     public function testCanOpenGetCurlConnection()
@@ -74,9 +72,6 @@ class AdventureResCurlHttpClientTest extends AbstractHttpClientTest
           ->shouldReceive('setoptArray')
           ->with(m::on(function ($arg) {
               // array_diff() will sometimes trigger error on child-arrays
-              if ([] !== $arg[CURLOPT_HTTPHEADER]) {
-                  return false;
-              }
               unset($arg[CURLOPT_HTTPHEADER]);
               $caInfo = array_diff($arg, [
                 CURLOPT_CUSTOMREQUEST  => 'POST',

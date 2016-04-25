@@ -38,7 +38,9 @@ class ApiRawResponse extends AbstractAdventureResBase
     }
 
     /**
-     * @return string
+     * Returns the raw body from the API response.
+     *
+*@return string
      */
     public function getRawBody()
     {

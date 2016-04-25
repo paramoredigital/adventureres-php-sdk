@@ -9,7 +9,7 @@ class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_Te
      */
     public function testInactiveSessionWillThrowException()
     {
-        $handler = new AdventureResSessionPersistentDataHandler();
+        $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = true);
     }
 
     public function testSet()
@@ -26,6 +26,16 @@ class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_Te
         $handler                = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
         $this->assertEquals('bar', $handler->get('foo'));
+    }
+
+    public function testDelete()
+    {
+        $_SESSION['ADVRES_foo'] = 'bar';
+        $handler                = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+
+        $handler->delete('foo');
+
+        $this->assertNull($handler->get('foo'));
     }
 
     public function testGettingNonexistentValueReturnsNull()
