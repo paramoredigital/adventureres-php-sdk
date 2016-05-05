@@ -44,7 +44,6 @@ class ServiceAvailabilityInputModel extends AbstractAdventureResModel
           'YouthQty'   => Validator::intType(),
           'Units'      => Validator::intType(),
           'StartDate'  => Validator::date('m/d/Y'),
-          'Session'    => Validator::stringType(),
           'Display'    => Validator::stringType()->uppercase()->oneOf(
             Validator::equals('GROUP'),
             Validator::equals('ITEM'))
