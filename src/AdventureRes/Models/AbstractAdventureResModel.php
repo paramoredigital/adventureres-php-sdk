@@ -38,6 +38,10 @@ abstract class AbstractAdventureResModel extends AbstractAdventureResBase implem
     {
         if (is_array($attributes) || $attributes instanceof \Traversable) {
             foreach ($attributes as $attribute => $value) {
+                if ($attribute === 'Result') {
+                    continue;
+                }
+
                 $this->setAttribute($attribute, $value);
             }
         }
@@ -186,6 +190,22 @@ abstract class AbstractAdventureResModel extends AbstractAdventureResBase implem
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getErrorsAsString()
+    {
+        $errorString = '';
+
+        foreach ($this->errors as $property => $errors) {
+            foreach ($errors as $error) {
+                $errorString .= "({$property}): {$error}. ";
+            }
+        }
+
+        return $errorString;
     }
 
     /**
