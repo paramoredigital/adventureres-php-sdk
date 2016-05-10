@@ -40,6 +40,10 @@ class AdventureResSessionPersistentDataHandler extends AbstractAdventureResBase
      * Gets a variable from the PHP Session.
      *
      * @param $key
+<<<<<<< Updated upstream
+=======
+     * @param mixed $defaultValue If the key doesn't exist in the session, you can provide an optional default value.
+>>>>>>> Stashed changes
      * @return mixed
      */
     public function get($key)
