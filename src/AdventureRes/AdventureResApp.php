@@ -31,13 +31,24 @@ class AdventureResApp
      * @var string
      */
     protected $password;
+    /**
+     * @var int The location ID set from configs.
+     */
+    protected $location;
 
-    public function __construct($baseDomain = null, $apiKey = null, $username = null, $password = null)
+    public function __construct(
+      $baseDomain = null,
+      $apiKey = null,
+      $username = null,
+      $password = null,
+      $location = null
+    )
     {
         $this->setBaseDomain($baseDomain);
         $this->setApiKey($apiKey);
         $this->setUsername($username);
         $this->setPassword($password);
+        $this->setLocation($location);
     }
 
     /**
@@ -103,6 +114,23 @@ class AdventureResApp
     {
         $this->password = $password;
     }
+
+    /**
+     * @return int
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param int $location
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+    }
+
 }
 
 /* End of AdventureResApp.php */
