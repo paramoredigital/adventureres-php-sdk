@@ -67,5 +67,37 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyServiceRemove = '{"RemoveResult": "[{\"ReservationId\":0,\"ReservationItemId\":123,\"Result\":\"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyReservationPolicies = '{"PoliciesResult": "[{\"PolicyId\":111,\"Description\":\"Cabin rental 2-night minimum.\",\"Details\":\"Please note that there is a 2-night minimum for cabin rentals. You will be charged an additional fee after your reservation is confirmed by our staff if you only book for 1 night.\",\"Mandatory\":true,\"Result\":\"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyItineraryDisplay = "[{ \"ReservationItemId\":\"100403\", \"ServiceId\":2, \"Description\":\"Canyon Rim Lower New River\", \"ServiceTime\":\"09:35\", \"Comments\":\"The lower section of the... \", \"ServiceDate\":\"7/11/2016 12:00:00 AM\", \"AdultQty\":2, \"YouthQty\":0, \"TotalAdult\":258.0000, \"TotalYouth\":0.0000, \"TotalDiscounts\":80.0000, \"TotalTax\":23.3800, \"TotalCost\":201.3800, \"InvoiceComments\":\"This trip meets at the Canyon R..... \", \"Notes\":\"\",\"Result\":\"SUCCESS\"}, {\"ReservationItemId\":\"100404\", \"ServiceId\":10, \"Description\":\"CR Wetsuit Rental-Prepay\", \"ServiceTime\":\"\",\"Comments\":\"Our 3 mm wetsuits have tank-style .....\", \"ServiceDate\":\"6/1/2014\",\"AdultQty\":2,\"YouthQty\":0,\"TotalAdult\":0.0000, \"TotalYouth\":0.0000, \"TotalDiscounts\":0.0000, \"TotalTax\":0.0000, \"TotalCost\":0.0000, \"InvoiceComments\":\"\", \"Notes\":\"\", \"Result\":\"SUCCESS\"}]";
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyCostSummary = "{\"Result\": [{\"ReservationTotalAdult\":0, \"ReservationTotalYouth\":0, \"ReservationTotalSubTotal\":5370.00, \"ReservationTotalTax\":543.90, \"ReservationTotalDiscounts\":0.00, \"ReservationTotalCost\":5913.90, \"ReservationPayments\":0.00, \"ReservationBalance\":5913.90, \"Result\":\"SUCCESS\"}]}";
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPaymentMethods = "{\"Result\": [{\"PaymentMethodId\":8,\"CreditCard\":\"American Express\",\"Result\":\"SUCCESS\"}, {\"PaymentMethodId\":9,\"CreditCard\":\"Discover\",\"Result\":\"SUCCESS\"}, {\"PaymentMethodId\":7,\"CreditCard\":\"MasterCard\",\"Result\":\"SUCCESS\"}, {\"PaymentMethodId\":6,\"CreditCard\":\"Visa\",\"Result\":\"SUCCESS\"}]}";
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPaymentAdd = '{"AddResult": "[{\"ReservationId\":10001,\"CustomerId\":0,\"Result\":\"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPaymentDue = '{"Result": "[{\"ReservationId\":10001,\"PaymentDue\":118.50,\"Result\":\"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPromoCodeAdd = '{"Result": "[{\"ReservationId\":10001,\"Result\":\"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyConfirmationMessage = '{"Result": "[{\"ReservationId\": 10001, \"Confirmation\":\"An email has been sent to you with important details regarding your itinerary.<p><b>PLEASE READ IT CAREFULLY!<\/b><\/p><p> If there are any problems with the details on your quote please contact our office as soon as possible. <\/p><p><b>PLEASE BE AWARE. YOU HAVE NOT MADE A RESERVATION. THIS IS ONLY A QUOTE.<\/b><\/p><p> IF YOU WANT TO CONVERT YOUR QUOTE INTO A RESERVATION PLEASE CONTACT OUR OFFICE.<\/p><p><br><\/p>\", \"Result\":\"SUCCESS\" }]"}';
 
 }

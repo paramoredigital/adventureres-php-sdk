@@ -21,7 +21,7 @@ class ReservationModel extends AbstractAdventureResModel
     {
         return [
           'ReservationId' => Validator::intType(),
-          'CustomerId'    => Validator::intType()
+          'CustomerId'    => Validator::optional(Validator::intType())
         ];
     }
 }

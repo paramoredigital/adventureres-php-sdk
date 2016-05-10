@@ -28,14 +28,14 @@ class CostSummaryModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationTotalAdult'     => Validator::floatType(),
-          'ReservationTotalYouth'     => Validator::floatType(),
+          'ReservationTotalAdult'     => Validator::oneOf(Validator::floatType(), Validator::intType()),
+          'ReservationTotalYouth'     => Validator::oneOf(Validator::floatType(), Validator::intType()),
           'ReservationTotalSubTotal'  => Validator::floatType(),
           'ReservationTotalTax'       => Validator::floatType(),
           'ReservationTotalDiscounts' => Validator::floatType(),
           'ReservationTotalCost'      => Validator::floatType(),
-          'ReservationTotalPayments'  => Validator::floatType(),
-          'ReservationTotalBalance'   => Validator::floatType(),
+          'ReservationPayments'       => Validator::floatType(),
+          'ReservationBalance'        => Validator::floatType(),
         ];
     }
 }
