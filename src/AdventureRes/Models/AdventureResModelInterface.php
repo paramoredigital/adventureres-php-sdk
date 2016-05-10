@@ -86,6 +86,13 @@ interface AdventureResModelInterface
      * @return array|null
      */
     public function getErrors();
+
+    /**
+     * Returns all errors as a string.
+     *
+     * @return array|null
+     */
+    public function getErrorsAsString();
 }
 
 /* End of AdventureResModelInterface.php */

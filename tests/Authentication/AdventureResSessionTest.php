@@ -3,6 +3,7 @@
 namespace AdventureRes\Tests\Authentication;
 
 use AdventureRes\AdventureResApp;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
 use Mockery as m;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
@@ -73,7 +74,7 @@ class AdventureResSessionTest extends AbstractHttpClientTest
         $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
         $session = new AdventureResSession($this->app, $this->curlClient);
 
-        $handler->set(AdventureResSession::SESSION_ID_KEY, 'foo');
+        $handler->set(AdventureResSessionKeys::SESSION_ID, 'foo');
 
         $this->assertEquals('foo', $session->getSessionId());
     }
@@ -82,10 +83,10 @@ class AdventureResSessionTest extends AbstractHttpClientTest
     {
         $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
-        $handler->set(AdventureResSession::SESSION_ID_KEY, 'foo');
+        $handler->set(AdventureResSessionKeys::SESSION_ID, 'foo');
         AdventureResSession::clearSession();
 
-        $this->assertNull($handler->get(AdventureResSession::SESSION_ID_KEY));
+        $this->assertNull($handler->get(AdventureResSessionKeys::SESSION_ID));
     }
 
     /**

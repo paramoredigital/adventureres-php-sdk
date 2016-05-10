@@ -15,6 +15,7 @@ use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Http\AdventureResRequest;
 use AdventureRes\Http\AdventureResResponse;
 use AdventureRes\HttpClients\AdventureResHttpClientInterface;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
 use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
 
 /**
@@ -24,10 +25,6 @@ use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
  */
 class AdventureResSession extends AbstractAdventureResBase
 {
-    /**
-     * The key to store the session with in persistent data.
-     */
-    const SESSION_ID_KEY = 'session_id';
     /**
      * The API service used in this class.
      */
@@ -126,7 +123,7 @@ class AdventureResSession extends AbstractAdventureResBase
     {
         $handler = new AdventureResSessionPersistentDataHandler();
 
-        $handler->delete(self::SESSION_ID_KEY);
+        $handler->delete(AdventureResSessionKeys::SESSION_ID);
     }
 
     /**
@@ -135,7 +132,7 @@ class AdventureResSession extends AbstractAdventureResBase
     protected function setSessionId()
     {
         $dataHandler     = new AdventureResSessionPersistentDataHandler();
-        $this->sessionId = $dataHandler->get(self::SESSION_ID_KEY);
+        $this->sessionId = $dataHandler->get(AdventureResSessionKeys::SESSION_ID);
 
         if (!$this->sessionId || !$this->isValidSessionId($this->sessionId)) {
             $this->clearSession();
