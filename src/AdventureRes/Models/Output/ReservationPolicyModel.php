@@ -23,6 +23,7 @@ class ReservationPolicyModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
+          'PolicyId'    => Validator::intType(),
           'Description' => Validator::stringType(),
           'Details'     => Validator::stringType(),
           'Mandatory'   => Validator::boolType()
