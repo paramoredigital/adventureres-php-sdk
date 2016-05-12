@@ -14,7 +14,7 @@ use AdventureRes\Exceptions\AdventureResResponseException;
 /**
  * Class AdventureResResponse
  *
- * @package AdventureRes
+ * @package AdventureRes\Http
  */
 class AdventureResResponse extends AbstractAdventureResBase
 {
@@ -181,9 +181,8 @@ class AdventureResResponse extends AbstractAdventureResBase
 
     /**
      * Converts raw headers to an array.
-
-*
-     * @param $rawHeaders
+     *
+     * @param string $rawHeaders
      */
     private function extractHeaders($rawHeaders)
     {

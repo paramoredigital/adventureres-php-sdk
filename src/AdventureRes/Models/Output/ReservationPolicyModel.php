@@ -20,6 +20,9 @@ use Respect\Validation\Validator;
  */
 class ReservationPolicyModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

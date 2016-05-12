@@ -14,7 +14,7 @@ use Respect\Validation\Validator;
 /**
  * Class ServiceModel
  *
-*@package AdventureRes
+ * @package AdventureRes\Models\Output
  * @property int $ServiceId
  * @property string $Description
  * @property string $Comment
@@ -33,21 +33,24 @@ use Respect\Validation\Validator;
  */
 class ServiceModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [
-          'ServiceId'             => Validator::intType(),
-          'Description'           => Validator::stringType(),
-          'Comment'               => Validator::optional(Validator::stringType()),
-          'Image1'                => Validator::optional(Validator::stringType()),
-          'Image2'                => Validator::optional(Validator::stringType()),
-          'AdultRate'             => Validator::optional(Validator::floatType()),
-          'YouthRate'             => Validator::optional(Validator::floatType()),
-          'ClassId'               => Validator::optional(Validator::intType()),
+          'ServiceId'              => Validator::intType(),
+          'Description'            => Validator::stringType(),
+          'Comment'                => Validator::optional(Validator::stringType()),
+          'Image1'                 => Validator::optional(Validator::stringType()),
+          'Image2'                 => Validator::optional(Validator::stringType()),
+          'AdultRate'              => Validator::optional(Validator::floatType()),
+          'YouthRate'              => Validator::optional(Validator::floatType()),
+          'ClassId'                => Validator::optional(Validator::intType()),
           // Availability Params:
-          'ServiceDate'           => Validator::optional(Validator::date('m/d/Y')),
-          'ServiceTime'           => Validator::optional(Validator::date('H:i')),
-          'ServiceScheduleItemId' => Validator::optional(Validator::intType()),
+          'ServiceDate'            => Validator::optional(Validator::date('m/d/Y')),
+          'ServiceTime'            => Validator::optional(Validator::date('H:i')),
+          'ServiceScheduleItemId'  => Validator::optional(Validator::intType()),
           'ShowAvailability'       => Validator::optional(Validator::boolType()),
           'Availability'           => Validator::optional(Validator::numeric()),
           'AvailabilityPercentage' => Validator::optional(Validator::numeric()),

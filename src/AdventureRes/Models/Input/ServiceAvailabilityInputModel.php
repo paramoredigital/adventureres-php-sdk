@@ -26,6 +26,11 @@ use Respect\Validation\Validator;
  */
 class ServiceAvailabilityInputModel extends AbstractAdventureResModel
 {
+    /**
+     * ServiceAvailabilityInputModel constructor.
+     *
+     * @param null $attributes
+     */
     public function __construct($attributes = null)
     {
         $this->setAttribute('AdultQty', 0);
@@ -35,6 +40,9 @@ class ServiceAvailabilityInputModel extends AbstractAdventureResModel
         parent::__construct($attributes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

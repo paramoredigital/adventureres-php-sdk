@@ -21,14 +21,13 @@ use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
 
 /**
  * Class AdventureResServiceService
- * [Insert clever comment making fun of the name ServiceService.]
  *
- * @package AdventureRes
+ * @package AdventureRes\Services
  */
 class AdventureResServiceService extends AbstractAdventureResService
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     const API_SERVICE = 'service';
     const CLASSIFICATION_ENDPOINT = '/Classifications';
@@ -85,7 +84,9 @@ class AdventureResServiceService extends AbstractAdventureResService
     }
 
     /**
-     * @param ServiceDisplayInputModel $inputModel
+     * Gets information about a service.
+     *
+*@param ServiceDisplayInputModel $inputModel
      * @return \AdventureRes\Models\AbstractAdventureResModel
      * @throws AdventureResSDKException
      */

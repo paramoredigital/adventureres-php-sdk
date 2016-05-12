@@ -12,11 +12,17 @@ use Respect\Validation\Validator;
 
 /**
  * Class ReservationModel
+
  *
- * @package AdventureRes\Models\Output
+*@package AdventureRes\Models\Output
+ * @property int $ReservationId
+ * @property int $CustomerId
  */
 class ReservationModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

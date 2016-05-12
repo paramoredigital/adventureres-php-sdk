@@ -13,7 +13,7 @@ use AdventureRes\Exceptions\AdventureResModelException;
 /**
  * Interface AdventureResModelInterface
  *
- * @package AdventureRes
+ * @package AdventureRes\Models
  */
 interface AdventureResModelInterface
 {

@@ -27,6 +27,11 @@ use Respect\Validation\Validator;
  */
 class ServiceAddInputModel extends AbstractAdventureResModel
 {
+    /**
+     * ServiceAddInputModel constructor.
+     *
+     * @param array|null $attributes
+     */
     public function __construct($attributes = null)
     {
         $this->setAttribute('ReservationId', 0);
@@ -38,6 +43,9 @@ class ServiceAddInputModel extends AbstractAdventureResModel
         parent::__construct($attributes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

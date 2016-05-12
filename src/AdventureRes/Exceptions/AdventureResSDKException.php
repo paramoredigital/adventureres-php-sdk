@@ -11,7 +11,7 @@ namespace AdventureRes\Exceptions;
 /**
  * Class AdventureResSDKException
  *
- * @package AdventureRes
+ * @package AdventureRes\Exceptions
  */
 class AdventureResSDKException extends \Exception
 {

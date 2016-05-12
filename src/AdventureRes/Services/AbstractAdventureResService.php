@@ -14,6 +14,11 @@ use AdventureRes\Authentication\AdventureResSession;
 use AdventureRes\HttpClients\AdventureResHttpClientInterface;
 use AdventureRes\AdventureResClient;
 
+/**
+ * Class AbstractAdventureResService
+ *
+ * @package AdventureRes\Services
+ */
 class AbstractAdventureResService extends AbstractAdventureResBase
 {
     /**
@@ -41,6 +46,13 @@ class AbstractAdventureResService extends AbstractAdventureResBase
      */
     protected $shouldValidateSessionIds;
 
+    /**
+     * AbstractAdventureResService constructor.
+     *
+     * @param AdventureResApp $app The configuration app.
+     * @param AdventureResHttpClientInterface|null $client Optionally pass in a pre-configured HttpClient.
+     * @param bool $shouldValidateSessionIds This should only be used for testing.
+     */
     public function __construct(
       AdventureResApp $app,
       AdventureResHttpClientInterface $client = null,
@@ -53,7 +65,9 @@ class AbstractAdventureResService extends AbstractAdventureResBase
     }
 
     /**
-     * @param \AdventureRes\AdventureResApp $app
+     * Sets the configuration app.
+     *
+*@param \AdventureRes\AdventureResApp $app
      */
     public function setApp($app)
     {
@@ -61,7 +75,9 @@ class AbstractAdventureResService extends AbstractAdventureResBase
     }
 
     /**
-     * @param AdventureResHttpClientInterface $httpClient
+     * Sets the HTTP client to be used in requests.
+     *
+*@param AdventureResHttpClientInterface $httpClient
      */
     public function setHttpClient($httpClient)
     {
@@ -69,7 +85,10 @@ class AbstractAdventureResService extends AbstractAdventureResBase
     }
 
     /**
-     * @return string
+     * Gets the session ID to be used in requests. Uses the AdventureResSession class to validate and/or generate
+     * a session ID.
+     *
+*@return string
      */
     public function getSessionId()
     {
@@ -83,7 +102,9 @@ class AbstractAdventureResService extends AbstractAdventureResBase
     }
 
     /**
-     * @param string $sessionId
+     * Sets the session ID.
+     *
+*@param string $sessionId
      */
     public function setSessionId($sessionId)
     {

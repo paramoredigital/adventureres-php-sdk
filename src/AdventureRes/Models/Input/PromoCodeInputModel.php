@@ -20,7 +20,7 @@ use Respect\Validation\Validator;
 class PromoCodeInputModel extends AbstractAdventureResModel
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function defineAttributes()
     {

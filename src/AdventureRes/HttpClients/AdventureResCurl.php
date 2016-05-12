@@ -12,7 +12,7 @@ namespace AdventureRes\HttpClients;
  * Class AdventureResCurl
  * Abstraction for the procedural curl elements so that curl can be mocked and the implementation can be tested.
  *
- * @package AdventureRes
+ * @package AdventureRes\HttpClients
  */
 class AdventureResCurl
 {

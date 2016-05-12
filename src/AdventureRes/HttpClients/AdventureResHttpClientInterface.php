@@ -11,7 +11,7 @@ namespace AdventureRes\HttpClients;
 /**
  * Interface AdventureResHttpClientInterface
  *
- * @package AdventureRes
+ * @package AdventureRes\HttpClients
  */
 interface AdventureResHttpClientInterface
 {

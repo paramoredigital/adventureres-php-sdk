@@ -13,23 +13,30 @@ use AdventureRes\AbstractAdventureResBase;
 /**
  * Class ApiRawResponse
  *
- * @package AdventureRes
+ * @package AdventureRes\Http
  */
 class ApiRawResponse extends AbstractAdventureResBase
 {
     /**
-     * @var string
+     * @var string The raw body returned from the response.
      */
     protected $rawBody;
     /**
-     * @var string
+     * @var string A string of headers returned from the response.
      */
     protected $rawHeaders;
     /**
-     * @var int|null
+     * @var int|null The status code returned from the response.
      */
     protected $httpStatusCode;
 
+    /**
+     * ApiRawResponse constructor.
+     *
+     * @param string $body
+     * @param string $headers
+     * @param int|null $httpStatusCode
+     */
     public function __construct($body, $headers, $httpStatusCode = null)
     {
         $this->rawBody        = $body;
@@ -40,7 +47,7 @@ class ApiRawResponse extends AbstractAdventureResBase
     /**
      * Returns the raw body from the API response.
      *
-*@return string
+     * @return string
      */
     public function getRawBody()
     {
@@ -48,7 +55,9 @@ class ApiRawResponse extends AbstractAdventureResBase
     }
 
     /**
-     * @return string
+     * Returns the raw headers from the API response.
+     *
+*@return string
      */
     public function getRawHeaders()
     {
@@ -56,7 +65,9 @@ class ApiRawResponse extends AbstractAdventureResBase
     }
 
     /**
-     * @return int|null
+     * Returns the status code from the API response.
+     *
+*@return int|null
      */
     public function getHttpStatusCode()
     {

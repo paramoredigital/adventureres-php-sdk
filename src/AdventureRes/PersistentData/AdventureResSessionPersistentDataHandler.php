@@ -14,7 +14,7 @@ use AdventureRes\Exceptions\AdventureResSDKException;
 /**
  * Class AdventureResSessionPersistentDataHandler
  *
- * @package AdventureRes
+ * @package AdventureRes\PersistentData
  */
 class AdventureResSessionPersistentDataHandler extends AbstractAdventureResBase
 {

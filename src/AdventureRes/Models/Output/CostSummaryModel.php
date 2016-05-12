@@ -25,6 +25,9 @@ use Respect\Validation\Validator;
  */
 class CostSummaryModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

@@ -36,6 +36,15 @@ class AdventureResApp
      */
     protected $location;
 
+    /**
+     * AdventureResApp constructor.
+     *
+     * @param string $baseDomain
+     * @param string $apiKey
+     * @param string $username
+     * @param string $password
+     * @param int $location
+     */
     public function __construct(
       $baseDomain = null,
       $apiKey = null,
@@ -52,7 +61,9 @@ class AdventureResApp
     }
 
     /**
-     * @return string
+     * Gets the configured base domain.
+     *
+*@return string
      */
     public function getBaseDomain()
     {
@@ -60,7 +71,9 @@ class AdventureResApp
     }
 
     /**
-     * @param string $baseDomain
+     * Sets the base domain.
+     *
+*@param string $baseDomain
      */
     public function setBaseDomain($baseDomain)
     {
@@ -68,7 +81,9 @@ class AdventureResApp
     }
 
     /**
-     * @return string
+     * Gets the configured API key.
+     *
+*@return string
      */
     public function getApiKey()
     {
@@ -76,7 +91,9 @@ class AdventureResApp
     }
 
     /**
-     * @param string $apiKey
+     * Sets the API key.
+     *
+*@param string $apiKey
      */
     public function setApiKey($apiKey)
     {
@@ -84,6 +101,8 @@ class AdventureResApp
     }
 
     /**
+     * Gets the configured username.
+     *
      * @return string
      */
     public function getUsername()
@@ -92,6 +111,8 @@ class AdventureResApp
     }
 
     /**
+     * Sets the username.
+     *
      * @param string $username
      */
     public function setUsername($username)
@@ -100,6 +121,8 @@ class AdventureResApp
     }
 
     /**
+     * Gets the configured Password.
+     *
      * @return string
      */
     public function getPassword()
@@ -108,6 +131,8 @@ class AdventureResApp
     }
 
     /**
+     * Sets the password.
+     *
      * @param string $password
      */
     public function setPassword($password)
@@ -116,6 +141,8 @@ class AdventureResApp
     }
 
     /**
+     * Gets the configured Location.
+     *
      * @return int
      */
     public function getLocation()
@@ -124,6 +151,8 @@ class AdventureResApp
     }
 
     /**
+     * Sets the location.
+     *
      * @param int $location
      */
     public function setLocation($location)

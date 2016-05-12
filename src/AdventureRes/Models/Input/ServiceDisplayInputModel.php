@@ -14,11 +14,14 @@ use Respect\Validation\Validator;
 /**
  * Class ServiceDisplayInputModel
  *
-*@package AdventureRes\Models\Input
+ * @package AdventureRes\Models\Input
  * @property int $ServiceId
  */
 class ServiceDisplayInputModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

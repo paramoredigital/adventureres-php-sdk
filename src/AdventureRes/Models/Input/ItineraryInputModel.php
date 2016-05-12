@@ -18,6 +18,9 @@ use Respect\Validation\Validator;
  */
 class ItineraryInputModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

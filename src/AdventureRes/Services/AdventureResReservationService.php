@@ -27,7 +27,7 @@ use AdventureRes\Models\Output\ReservationPolicyModel;
 class AdventureResReservationService extends AbstractAdventureResService
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     const API_SERVICE = 'reservation';
     const POLICIES_ENDPOINT = '/Policies';

@@ -10,8 +10,34 @@ namespace AdventureRes\Models\Input;
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
+/**
+ * Class PaymentInputModel
+ *
+ * @package AdventureRes\Models\Input
+ * @property int $ReservationId
+ * @property int $CustomerId
+ * @property int $PaymentMethodId
+ * @property string $Address
+ * @property string $Address2 Optional
+ * @property string $City
+ * @property string $State
+ * @property string $Zip
+ * @property string $HomePhone
+ * @property string $WorkPhone
+ * @property string $CellPhone
+ * @property string $Email
+ * @property string $Organization
+ * @property string $CreditCard
+ * @property string $ExpirationDate
+ * @property string $CID
+ * @property float $Amount
+ * @property string $PromoCode
+ */
 class PaymentInputModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

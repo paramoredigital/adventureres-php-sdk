@@ -21,7 +21,7 @@ use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
 /**
  * Class AdventureResSession
  *
- * @package AdventureRes
+ * @package AdventureRes\Authentication
  */
 class AdventureResSession extends AbstractAdventureResBase
 {
@@ -56,11 +56,12 @@ class AdventureResSession extends AbstractAdventureResBase
 
     /**
      * AdventureResSession constructor.
+
      *
+*@param AdventureResApp $app
      * @param AdventureResHttpClientInterface|null $client
-     * @param AdventureResApp $app
      */
-    public function __construct($app, AdventureResHttpClientInterface $client = null)
+    public function __construct(AdventureResApp $app, AdventureResHttpClientInterface $client = null)
     {
         $this->setApp($app);
         $this->setHttpClient($client);
@@ -68,7 +69,9 @@ class AdventureResSession extends AbstractAdventureResBase
     }
 
     /**
-     * @param AdventureResApp $app
+     * Sets the app in the instance.
+     *
+*@param AdventureResApp $app
      */
     public function setApp($app)
     {
@@ -76,7 +79,9 @@ class AdventureResSession extends AbstractAdventureResBase
     }
 
     /**
-     * @param AdventureResHttpClientInterface $httpClient
+     * Sets the HTTP client to be used for all requests.
+     *
+*@param AdventureResHttpClientInterface $httpClient
      */
     public function setHttpClient($httpClient)
     {
@@ -84,7 +89,10 @@ class AdventureResSession extends AbstractAdventureResBase
     }
 
     /**
-     * @return string
+     * Returns a valid Session ID. If a session ID has not been created, it will run the authentication to
+     * create one. If a session ID has been created, it will validate it and then return a valid ID.
+     *
+*@return string
      */
     public function getSessionId()
     {
@@ -94,6 +102,8 @@ class AdventureResSession extends AbstractAdventureResBase
     }
 
     /**
+     * Checks to see if a session ID is valid.
+     *
      * @param string $sessionId
      * @return bool
      * @throws AdventureResSDKException

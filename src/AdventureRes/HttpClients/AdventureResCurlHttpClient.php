@@ -15,7 +15,7 @@ use AdventureRes\Http\ApiRawResponse;
 /**
  * Class AdventureResCurlHttpClient
  *
- * @package AdventureRes
+ * @package AdventureRes\HttpClients
  */
 class AdventureResCurlHttpClient extends AbstractAdventureResBase implements AdventureResHttpClientInterface
 {
@@ -45,7 +45,9 @@ class AdventureResCurlHttpClient extends AbstractAdventureResBase implements Adv
     const CONNECTION_ESTABLISHED = "HTTP/1.0 200 Connection established\r\n\r\n";
 
     /**
-     * @param AdventureResCurl|null Procedural curl as object
+     * AdventureResCurlHttpClient constructor
+     *
+*@param AdventureResCurl|null Procedural curl as object
      */
     public function __construct(AdventureResCurl $adventureResCurl = null)
     {
@@ -53,7 +55,7 @@ class AdventureResCurlHttpClient extends AbstractAdventureResBase implements Adv
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function send($url, $method, $body, array $headers, $timeOut)
     {

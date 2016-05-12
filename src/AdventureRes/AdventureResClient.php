@@ -25,6 +25,11 @@ class AdventureResClient extends AbstractAdventureResBase
      */
     protected $httpClient;
 
+    /**
+     * AdventureResClient constructor.
+     *
+     * @param AdventureResHttpClientInterface $httpClient
+     */
     public function __construct($httpClient = null)
     {
         if (is_null($httpClient)) {
@@ -35,7 +40,9 @@ class AdventureResClient extends AbstractAdventureResBase
     }
 
     /**
-     * @return AdventureResCurlHttpClient
+     * Gets the configured HTTP client.
+     *
+*@return AdventureResCurlHttpClient
      */
     public function getHttpClient()
     {
@@ -43,13 +50,23 @@ class AdventureResClient extends AbstractAdventureResBase
     }
 
     /**
-     * @param AdventureResCurlHttpClient $httpClient
+     * Sets the HTTP client to be used in all requests.
+     *
+*@param AdventureResCurlHttpClient $httpClient
      */
     public function setHttpClient($httpClient)
     {
         $this->httpClient = $httpClient;
     }
 
+    /**
+     * Sends a request to the API and returns an instance of AdventureResResponse.
+     *
+     * @param AdventureResRequest $request
+     * @return AdventureResResponse
+     * @throws Exceptions\AdventureResResponseException
+     * @throws null
+     */
     public function sendRequest(AdventureResRequest $request)
     {
         $rawResponse  = $this->httpClient->send($request->getUrl(), $request->getMethod(), $request->getBody(),

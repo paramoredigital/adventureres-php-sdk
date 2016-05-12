@@ -13,7 +13,7 @@ use AdventureRes\Http\AdventureResResponse;
 /**
  * Class AdventureResSDKException
  *
- * @package AdventureRes
+ * @package AdventureRes\Exceptions
  */
 class AdventureResResponseException extends \Exception
 {

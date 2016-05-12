@@ -21,6 +21,9 @@ use Respect\Validation\Validator;
  */
 class ClassificationModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

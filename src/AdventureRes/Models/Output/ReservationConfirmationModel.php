@@ -19,6 +19,9 @@ use Respect\Validation\Validator;
  */
 class ReservationConfirmationModel extends AbstractAdventureResModel
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [

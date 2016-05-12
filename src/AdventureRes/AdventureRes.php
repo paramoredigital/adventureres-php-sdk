@@ -10,6 +10,11 @@ namespace AdventureRes;
 use AdventureRes\Services\AdventureResReservationService;
 use AdventureRes\Services\AdventureResServiceService;
 
+/**
+ * Class AdventureRes
+ *
+ * @package AdventureRes
+ */
 class AdventureRes extends AbstractAdventureResBase
 {
     /**
@@ -41,7 +46,9 @@ class AdventureRes extends AbstractAdventureResBase
     }
 
     /**
-     * @return AdventureResServiceService
+     * A shortcut method to get an instance of the Service service
+     *
+*@return AdventureResServiceService
      */
     public function service()
     {
@@ -49,7 +56,9 @@ class AdventureRes extends AbstractAdventureResBase
     }
 
     /**
-     * @return AdventureResReservationService
+     * A shortcut method to get an instance of the Reservation service
+     *
+*@return AdventureResReservationService
      */
     public function reservation()
     {
@@ -57,7 +66,9 @@ class AdventureRes extends AbstractAdventureResBase
     }
 
     /**
-     * @return AdventureResApp
+     * Gets the configured app.
+     *
+*@return AdventureResApp
      */
     public function getApp()
     {
