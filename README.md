@@ -1,6 +1,6 @@
 # AdventureRes SDK for PHP
 
-This repository contains the open source PHP SDK that provides an easy way for PHP developers to access the AdventureRes SDK.
+This repository contains the open source PHP SDK that provides an easy way for PHP developers to access the AdventureRes SDK. Full class reference is available [here](http://paramoredigital.github.io/adventureres-php-sdk/docs/). 
 
 ## Installation
 
