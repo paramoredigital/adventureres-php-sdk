@@ -5,7 +5,7 @@ This repository contains the open source PHP SDK that provides an easy way for P
 ## Installation
 
 ```sh
-composer require facebook/php-sdk-v4
+composer require adventureres/php-sdk-v1
 ```
 
 ## Usage 
