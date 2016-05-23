@@ -8,7 +8,7 @@ use Mockery as m;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
 use AdventureRes\Authentication\AdventureResSession;
-use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
+use AdventureRes\PersistentData\PhpSessionPersistentDataHandler;
 
 class AdventureResSessionTest extends AbstractHttpClientTest
 {
@@ -71,7 +71,7 @@ class AdventureResSessionTest extends AbstractHttpClientTest
           ->once()
           ->andReturn(null);
 
-        $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+        $handler = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = false);
         $session = new AdventureResSession($this->app, $this->curlClient);
 
         $handler->set(AdventureResSessionKeys::SESSION_ID, 'foo');
@@ -81,10 +81,11 @@ class AdventureResSessionTest extends AbstractHttpClientTest
 
     public function testClearSessionId()
     {
-        $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+        $sessionService = new AdventureResSession($this->app);
+        $handler = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
         $handler->set(AdventureResSessionKeys::SESSION_ID, 'foo');
-        AdventureResSession::clearSession();
+        $sessionService->clearSession();
 
         $this->assertNull($handler->get(AdventureResSessionKeys::SESSION_ID));
     }

@@ -34,15 +34,16 @@ class AdventureRes extends AbstractAdventureResBase
     /**
      * AdventureRes constructor.
      *
-     * @param $baseDomain
-     * @param $apiKey
-     * @param $username
-     * @param $password
-     * @param $location
+     * @param string $baseDomain
+     * @param string $apiKey
+     * @param string $username
+     * @param string $password
+     * @param int $location
+     * @param string $dataHandler The name of the data handler class to use. Defaults to `PhpSession`.
      */
-    public function __construct($baseDomain, $apiKey, $username, $password, $location)
+    public function __construct($baseDomain, $apiKey, $username, $password, $location, $dataHandler = null)
     {
-        $this->app = new AdventureResApp($baseDomain, $apiKey, $username, $password, $location);
+        $this->app = new AdventureResApp($baseDomain, $apiKey, $username, $password, $location, $dataHandler);
     }
 
     /**

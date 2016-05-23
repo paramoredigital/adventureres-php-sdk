@@ -1,6 +1,6 @@
 <?php
 
-use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
+use AdventureRes\PersistentData\PhpSessionPersistentDataHandler;
 
 class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,12 +9,12 @@ class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_Te
      */
     public function testInactiveSessionWillThrowException()
     {
-        $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = true);
+        $handler = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = true);
     }
 
     public function testSet()
     {
-        $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+        $handler = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
         $handler->set('scud', 'stud');
         $this->assertEquals('stud', $_SESSION['ADVRES_scud']);
@@ -23,7 +23,7 @@ class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_Te
     public function testGet()
     {
         $_SESSION['ADVRES_foo'] = 'bar';
-        $handler                = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+        $handler                = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
         $this->assertEquals('bar', $handler->get('foo'));
     }
@@ -31,7 +31,7 @@ class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_Te
     public function testDelete()
     {
         $_SESSION['ADVRES_foo'] = 'bar';
-        $handler                = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+        $handler                = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
         $handler->delete('foo');
 
@@ -40,7 +40,7 @@ class AdventureResSessionPersistentDataHandlerTest extends \PHPUnit_Framework_Te
 
     public function testGettingNonexistentValueReturnsNull()
     {
-        $handler = new AdventureResSessionPersistentDataHandler($shouldCheckSessionStatus = false);
+        $handler = new PhpSessionPersistentDataHandler($shouldCheckSessionStatus = false);
 
         $this->assertNull($handler->get('i_do_not_exist'));
     }

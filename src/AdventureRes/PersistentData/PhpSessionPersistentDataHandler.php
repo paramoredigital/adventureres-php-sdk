@@ -16,7 +16,7 @@ use AdventureRes\Exceptions\AdventureResSDKException;
  *
  * @package AdventureRes\PersistentData
  */
-class AdventureResSessionPersistentDataHandler extends AbstractAdventureResBase
+class PhpSessionPersistentDataHandler extends AbstractAdventureResBase implements AdventureResPersistentDataInterface
 {
     /**
      * @var string Prefix to use for session variables.

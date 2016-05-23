@@ -16,7 +16,6 @@ use AdventureRes\Http\AdventureResRequest;
 use AdventureRes\Http\AdventureResResponse;
 use AdventureRes\HttpClients\AdventureResHttpClientInterface;
 use AdventureRes\PersistentData\AdventureResSessionKeys;
-use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
 
 /**
  * Class AdventureResSession
@@ -129,9 +128,9 @@ class AdventureResSession extends AbstractAdventureResBase
     /**
      * Clears a session ID.
      */
-    public static function clearSession()
+    public function clearSession()
     {
-        $handler = new AdventureResSessionPersistentDataHandler();
+        $handler = $this->app->getDataHandler();
 
         $handler->delete(AdventureResSessionKeys::SESSION_ID);
     }
@@ -141,12 +140,15 @@ class AdventureResSession extends AbstractAdventureResBase
      */
     protected function setSessionId()
     {
-        $dataHandler     = new AdventureResSessionPersistentDataHandler();
+        $dataHandler     = $this->app->getDataHandler();
         $this->sessionId = $dataHandler->get(AdventureResSessionKeys::SESSION_ID);
 
         if (!$this->sessionId || !$this->isValidSessionId($this->sessionId)) {
             $this->clearSession();
+
             $this->sessionId = $this->authenticate();
+
+            $dataHandler->set(AdventureResSessionKeys::SESSION_ID, $this->sessionId);
         }
     }
 

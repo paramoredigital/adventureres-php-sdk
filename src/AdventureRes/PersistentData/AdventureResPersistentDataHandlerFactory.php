@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright 2016 AdventureRes
+ *
+ * @license GPL-3.0+
+ */
+
+namespace AdventureRes\PersistentData;
+
+use AdventureRes\Exceptions\AdventureResSDKException;
+
+/**
+ * Class AdventureResPersistentDataHandlerFactory
+ *
+ * @package AdventureRes\PersistentData
+ */
+class AdventureResPersistentDataHandlerFactory
+{
+    /**
+     * @param string $name The fully qualified class name of the data handler.
+     * @param array $arguments
+     * @return object
+     * @throws AdventureResSDKException
+     */
+    public function createDataHandler($name, $arguments = [])
+    {
+        $this->validateName($name);
+
+        $reflector = new \ReflectionClass($name);
+
+        return $reflector->newInstanceArgs($arguments);
+    }
+
+    /**
+     * @param $name
+     * @throws AdventureResSDKException
+     */
+    private function validateName($name)
+    {
+        if (empty($name)) {
+            throw new AdventureResSDKException('Could not create an instance of the data handler because no name was specified.');
+        }
+
+        if (!class_exists($name)) {
+            throw new AdventureResSDKException('The data handler requested could not be found:');
+        }
+    }
+}
+
+/* End of AdventureResPersistentDataHandlerFactory.php */

@@ -11,7 +11,7 @@ use AdventureRes\PersistentData\AdventureResSessionKeys;
 use Mockery as m;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
-use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
+use AdventureRes\PersistentData\PhpSessionPersistentDataHandler;
 use AdventureRes\Services\AdventureResServiceService;
 
 class AdventureResServiceServiceTest extends AbstractHttpClientTest
@@ -86,7 +86,6 @@ class AdventureResServiceServiceTest extends AbstractHttpClientTest
         /** @var \AdventureRes\Models\Input\ServiceAvailabilityInputModel $input */
         $input       = ServiceAvailabilityInputModel::populateModel([
           'ServiceId'  => 123,
-          'LocationId' => 10,
           'AdultQty'   => 2,
           'YouthQty'   => 0,
           'Units'      => 0,
@@ -146,7 +145,7 @@ class AdventureResServiceServiceTest extends AbstractHttpClientTest
 
     public function testAddServiceSetsReservationId()
     {
-        $dataHandler = new AdventureResSessionPersistentDataHandler();
+        $dataHandler = new PhpSessionPersistentDataHandler();
 
         $dataHandler->delete(AdventureResSessionKeys::RESERVATION_ID);
         $this->assertEquals(0, $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, 0));
@@ -171,7 +170,7 @@ class AdventureResServiceServiceTest extends AbstractHttpClientTest
 
     public function testRemoveServiceFromReservation()
     {
-        $dataHandler = new AdventureResSessionPersistentDataHandler();
+        $dataHandler = new PhpSessionPersistentDataHandler();
 
         $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, 111);
         $this->setupCurlMock($this->fakeRawBodyServiceRemove);

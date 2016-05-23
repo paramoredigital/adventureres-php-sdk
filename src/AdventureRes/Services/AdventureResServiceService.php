@@ -17,7 +17,6 @@ use AdventureRes\Models\Output\ClassificationModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\Models\Output\ServiceModel;
 use AdventureRes\PersistentData\AdventureResSessionKeys;
-use AdventureRes\PersistentData\AdventureResSessionPersistentDataHandler;
 
 /**
  * Class AdventureResServiceService
@@ -141,9 +140,9 @@ class AdventureResServiceService extends AbstractAdventureResService
      */
     public function addServiceToReservation(ServiceAddInputModel $inputModel)
     {
-        $dataHandler = new AdventureResSessionPersistentDataHandler();
+        $dataHandler = $this->app->getDataHandler();
 
-        if ($inputModel->ReservationId) {
+        if (! $inputModel->ReservationId) {
             $inputModel->ReservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, $defaultValue = 0);
         }
 
@@ -176,7 +175,7 @@ class AdventureResServiceService extends AbstractAdventureResService
      */
     public function removeServiceFromReservation(ServiceRemoveInputModel $inputModel)
     {
-        $dataHandler = new AdventureResSessionPersistentDataHandler();
+        $dataHandler = $this->app->getDataHandler();
 
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());

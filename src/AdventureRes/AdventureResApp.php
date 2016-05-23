@@ -8,6 +8,8 @@
 
 namespace AdventureRes;
 
+use AdventureRes\PersistentData\AdventureResPersistentDataHandlerFactory;
+
 /**
  * Class AdventureResApp
  *
@@ -35,6 +37,10 @@ class AdventureResApp
      * @var int The location ID set from configs.
      */
     protected $location;
+    /**
+     * @var \AdventureRes\PersistentData\AdventureResPersistentDataInterface
+     */
+    protected $dataHandler;
 
     /**
      * AdventureResApp constructor.
@@ -44,26 +50,28 @@ class AdventureResApp
      * @param string $username
      * @param string $password
      * @param int $location
+     * @param  $dataHandler
      */
     public function __construct(
       $baseDomain = null,
       $apiKey = null,
       $username = null,
       $password = null,
-      $location = null
-    )
-    {
+      $location = null,
+      $dataHandler = null
+    ) {
         $this->setBaseDomain($baseDomain);
         $this->setApiKey($apiKey);
         $this->setUsername($username);
         $this->setPassword($password);
         $this->setLocation($location);
+        $this->setDataHandler($dataHandler);
     }
 
     /**
      * Gets the configured base domain.
      *
-*@return string
+     * @return string
      */
     public function getBaseDomain()
     {
@@ -73,7 +81,7 @@ class AdventureResApp
     /**
      * Sets the base domain.
      *
-*@param string $baseDomain
+     * @param string $baseDomain
      */
     public function setBaseDomain($baseDomain)
     {
@@ -83,7 +91,7 @@ class AdventureResApp
     /**
      * Gets the configured API key.
      *
-*@return string
+     * @return string
      */
     public function getApiKey()
     {
@@ -93,7 +101,7 @@ class AdventureResApp
     /**
      * Sets the API key.
      *
-*@param string $apiKey
+     * @param string $apiKey
      */
     public function setApiKey($apiKey)
     {
@@ -158,6 +166,27 @@ class AdventureResApp
     public function setLocation($location)
     {
         $this->location = $location;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDataHandler()
+    {
+        return $this->dataHandler;
+    }
+
+    /**
+     * @param mixed $dataHandler
+     */
+    public function setDataHandler($dataHandler)
+    {
+        if (empty($dataHandler)) {
+            $dataHandler = '\AdventureRes\PersistentData\PhpSessionPersistentDataHandler';
+        }
+
+        $factory = new AdventureResPersistentDataHandlerFactory();
+        $this->dataHandler = $factory->createDataHandler($dataHandler);
     }
 
 }

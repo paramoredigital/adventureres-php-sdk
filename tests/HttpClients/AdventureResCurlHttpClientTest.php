@@ -40,7 +40,7 @@ class AdventureResCurlHttpClientTest extends AbstractHttpClientTest
               unset($arg[CURLOPT_HTTPHEADER]);
               $caInfo = array_diff($arg, [
                 CURLOPT_CUSTOMREQUEST  => 'GET',
-                CURLOPT_URL            => 'http://foo.com',
+                CURLOPT_URL            => 'http://foo.com?body=foo_body',
                 CURLOPT_CONNECTTIMEOUT => 10,
                 CURLOPT_TIMEOUT        => 123,
                 CURLOPT_RETURNTRANSFER => true,
@@ -59,7 +59,7 @@ class AdventureResCurlHttpClientTest extends AbstractHttpClientTest
           }))
           ->once()
           ->andReturn(null);
-        $this->curlClient->openConnection('http://foo.com', 'GET', 'foo_body', ['X-Foo-Header' => 'X-Bar'], 123);
+        $this->curlClient->openConnection('http://foo.com', 'GET', '{"body": "foo_body"}', ['X-Foo-Header' => 'X-Bar'], 123);
     }
 
     public function testCanOpenCurlConnectionWithPostBody()
@@ -143,7 +143,7 @@ class AdventureResCurlHttpClientTest extends AbstractHttpClientTest
           ->shouldReceive('close')
           ->once()
           ->andReturn(null);
-        $response = $this->curlClient->send('http://foo.com/', 'GET', '', [], 60);
+        $response = $this->curlClient->send('http://foo.com/', 'GET', '[]', [], 60);
         $this->assertEquals($this->fakeRawBody, $response->getRawBody());
         $this->assertEquals(trim($this->fakeRawHeader), $response->getRawHeaders());
         $this->assertEquals(200, $response->getHttpStatusCode());
@@ -174,6 +174,6 @@ class AdventureResCurlHttpClientTest extends AbstractHttpClientTest
           ->shouldReceive('error')
           ->once()
           ->andReturn('Foo error');
-        $this->curlClient->send('http://foo.com/', 'GET', '', [], 60);
+        $this->curlClient->send('http://foo.com/', 'GET', '[]', [], 60);
     }
 }
