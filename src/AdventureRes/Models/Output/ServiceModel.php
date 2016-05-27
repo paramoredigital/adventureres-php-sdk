@@ -39,14 +39,14 @@ class ServiceModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ServiceId'              => Validator::intType(),
+          'ServiceId'              => Validator::numeric(),
           'Description'            => Validator::stringType(),
           'Comment'                => Validator::optional(Validator::stringType()),
           'Image1'                 => Validator::optional(Validator::stringType()),
           'Image2'                 => Validator::optional(Validator::stringType()),
-          'AdultRate'              => Validator::optional(Validator::floatType()),
-          'YouthRate'              => Validator::optional(Validator::floatType()),
-          'ClassId'                => Validator::optional(Validator::intType()),
+          'AdultRate'              => Validator::optional(Validator::numeric()),
+          'YouthRate'              => Validator::optional(Validator::numeric()),
+          'ClassId'                => Validator::optional(Validator::numeric()),
           // Availability Params:
           'ServiceDate'            => Validator::optional(Validator::date('m/d/Y')),
           'ServiceTime'            => Validator::optional(Validator::date('H:i')),
@@ -57,7 +57,9 @@ class ServiceModel extends AbstractAdventureResModel
           'DisplayType'            => Validator::optional(Validator::oneOf(
             Validator::equals('Units'),
             Validator::equals('Per-Person'),
-            Validator::equals('Unavailable')))
+            Validator::equals('Unavailable'))),
+	      'UnitsRequired'          => Validator::optional(Validator::numeric()),
+	      'Result'          => Validator::optional(Validator::stringType())
         ];
     }
 }

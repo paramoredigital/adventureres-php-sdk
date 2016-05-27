@@ -47,6 +47,7 @@ class ServiceAvailabilityInputModel extends AbstractAdventureResModel
     {
         return [
           'ServiceId'  => Validator::intType(),
+          'LocationId' => Validator::intType(),
           'AdultQty'   => Validator::intType(),
           'YouthQty'   => Validator::intType(),
           'Units'      => Validator::intType(),

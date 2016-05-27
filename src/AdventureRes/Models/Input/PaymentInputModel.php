@@ -43,6 +43,9 @@ class PaymentInputModel extends AbstractAdventureResModel
         return [
           'ReservationId'   => Validator::intType(),
           'CustomerId'      => Validator::intType(),
+	      'FirstName'       => Validator::stringType(),
+	      'LastName'        => Validator::stringType(),
+	      'Comments'        => Validator::stringType(),
           'PaymentMethodId' => Validator::intType(),
           'Address'         => Validator::stringType(),
           'Address2'        => Validator::optional(Validator::stringType()),

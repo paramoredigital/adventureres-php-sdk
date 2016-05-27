@@ -71,11 +71,12 @@ class AdventureResClient extends AbstractAdventureResBase
     {
         $rawResponse  = $this->httpClient->send($request->getUrl(), $request->getMethod(), $request->getBody(),
           $request->getHeaders(), $request->getTimeout());
+
         $fullResponse = new AdventureResResponse($request, $rawResponse->getRawBody(),
           $rawResponse->getHttpStatusCode(), $rawResponse->getRawHeaders());
 
         if ($fullResponse->isError()) {
-            throw $fullResponse->getThrownException();
+	        throw $fullResponse->getThrownException();
         }
 
         return $fullResponse;

@@ -25,8 +25,9 @@ class ReservationConfirmationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'Confirmation'  => Validator::stringType()
+          'ReservationId' => Validator::optional(Validator::numeric()),
+          'Confirmation'  => Validator::optional(Validator::oneOf(Validator::stringType(), Validator::nullType())),
+          'Result'        => Validator::optional(Validator::stringType())
         ];
     }
 

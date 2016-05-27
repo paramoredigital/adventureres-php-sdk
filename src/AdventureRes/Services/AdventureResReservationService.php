@@ -150,7 +150,9 @@ class AdventureResReservationService extends AbstractAdventureResService
 
         $params            = $inputModel->getAttributes();
         $params['Session'] = $this->getSessionId();
+	    var_dump($params);
         $response          = $this->makeApiCall('POST', self::PAYMENT_ADD_ENDPOINT, $params);
+	    var_dump($response->getDecodedBody());
         $result            = $response->getDecodedBody();
 
         return ReservationModel::populateModel((array)$result[0]);

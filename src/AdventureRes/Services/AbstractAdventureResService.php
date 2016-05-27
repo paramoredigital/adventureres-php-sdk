@@ -11,6 +11,7 @@ use AdventureRes\AbstractAdventureResBase;
 use AdventureRes\AdventureResApp;
 use AdventureRes\Http\AdventureResRequest;
 use AdventureRes\Authentication\AdventureResSession;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
 use AdventureRes\HttpClients\AdventureResHttpClientInterface;
 use AdventureRes\AdventureResClient;
 
@@ -88,7 +89,7 @@ class AbstractAdventureResService extends AbstractAdventureResBase
      * Gets the session ID to be used in requests. Uses the AdventureResSession class to validate and/or generate
      * a session ID.
      *
-*@return string
+	 * @return string
      */
     public function getSessionId()
     {
@@ -104,12 +105,37 @@ class AbstractAdventureResService extends AbstractAdventureResBase
     /**
      * Sets the session ID.
      *
-*@param string $sessionId
+	 * @param string $sessionId
      */
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
     }
+
+	/**
+	 * Get the reservation ID for our current session
+	 *
+	 * @return mixed
+	 */
+	public function getReservationId()
+	{
+		$dataHandler = $this->app->getDataHandler();
+
+		return $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID);
+	}
+
+	/**
+	 * Get the reservation ID for our current session
+	 *
+	 * @param $reservationId
+	 * @return mixed
+	 */
+	public function setReservationId($reservationId)
+	{
+		$dataHandler = $this->app->getDataHandler();
+
+		return $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, $reservationId);
+	}
 
     /**
      * Generates an AdventureResRequest and sends it via the client.

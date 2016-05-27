@@ -29,7 +29,8 @@ class ReservationPolicyModel extends AbstractAdventureResModel
           'PolicyId'    => Validator::intType(),
           'Description' => Validator::stringType(),
           'Details'     => Validator::stringType(),
-          'Mandatory'   => Validator::boolType()
+          'Mandatory'   => Validator::boolType(),
+          'Result'      => Validator::optional(Validator::stringType())
         ];
     }
 }

@@ -38,19 +38,21 @@ class ReservationItemModel extends AbstractAdventureResModel
           'ReservationItemId' => Validator::numeric(),
           'Description'       => Validator::stringType(),
           'Comments'          => Validator::stringType(),
-          'ServiceId'         => Validator::intType(),
+          'ServiceId'         => Validator::numeric(),
           'ServiceTime'       => Validator::optional(Validator::date('H:i')),
           // Legacy, perhaps? Not sure why, but it's not set in the responses...
           'ServiceDate'       => Validator::optional(Validator::date('m/d/Y H:i:s A')),
-          'AdultQty'          => Validator::intType(),
-          'YouthQty'          => Validator::intType(),
-          'TotalAdult'        => Validator::floatType(),
-          'TotalYouth'        => Validator::floatType(),
-          'TotalDiscounts'    => Validator::floatType(),
-          'TotalTax'          => Validator::floatType(),
-          'TotalCost'         => Validator::floatType(),
+          'AdultQty'          => Validator::numeric(),
+          'YouthQty'          => Validator::numeric(),
+          'TotalAdult'        => Validator::numeric(),
+          'TotalYouth'        => Validator::numeric(),
+          'TotalDiscounts'    => Validator::numeric(),
+          'TotalTax'          => Validator::numeric(),
+          'TotalCost'         => Validator::numeric(),
           'InvoiceComments'   => Validator::stringType(),
-          'Notes'             => Validator::stringType()
+          'Notes'             => Validator::stringType(),
+	      'Units'             => Validator::optional(Validator::numeric()),
+	      'Result'            => Validator::optional(Validator::stringType())
         ];
     }
 }

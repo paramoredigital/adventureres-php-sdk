@@ -27,9 +27,10 @@ class ClassificationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ServiceId'   => Validator::intType(),
+          'ServiceId'   => Validator::numeric(),
           'Description' => Validator::stringType(),
-          'ClassId'     => Validator::intType()
+          'ClassId'     => Validator::numeric(),
+          'Result'      => Validator::optional(Validator::stringType())
         ];
     }
 }

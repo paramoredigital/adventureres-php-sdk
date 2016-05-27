@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Copyright 2016 AdventureRes
+ *
+ * @license GPL-3.0+
+ */
+
+namespace AdventureRes\Models\Input;
+
+use AdventureRes\Models\AbstractAdventureResModel;
+use Respect\Validation\Validator;
+
+/**
+ * Class ClassificationInputModel
+ *
+ * @package AdventureRes\Models\Input
+ * @property int $LocationId
+ */
+class ClassificationInputModel extends AbstractAdventureResModel
+{
+    /**
+     * {@inheritdoc}
+     */
+    protected function defineAttributes()
+    {
+        return [
+          'LocationId' => Validator::intType()
+        ];
+    }
+}
+
+/* End of ServiceDisplayInputModel.php */

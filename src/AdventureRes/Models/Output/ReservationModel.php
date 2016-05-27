@@ -26,8 +26,15 @@ class ReservationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'CustomerId'    => Validator::optional(Validator::intType())
+          'ReservationId'   => Validator::intType(),
+          'CustomerId'      => Validator::optional(Validator::intType()),
+	      'Approved'        => Validator::optional(Validator::boolType()),
+	      'Response'        => Validator::optional(Validator::stringType()),
+	      'Authorization'   => Validator::optional(Validator::stringType()),
+	      'ResponseMessage' => Validator::optional(Validator::stringType()),
+	      'Amount'          => Validator::optional(Validator::oneOf(Validator::floatType(), Validator::intType())),
+	      'EmailResult'     => Validator::optional(Validator::stringType()),
+          'Result'          => Validator::optional(Validator::stringType())
         ];
     }
 }

@@ -25,8 +25,9 @@ class PaymentDueModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'PaymentDue'    => Validator::floatType()
+          'ReservationId' => Validator::numeric(),
+          'PaymentDue'    => Validator::numeric(),
+          'Result'        => Validator::optional(Validator::stringType())
         ];
     }
 

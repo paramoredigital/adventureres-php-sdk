@@ -104,7 +104,7 @@ class AdventureResCurlHttpClient extends AbstractAdventureResBase implements Adv
               ] + (array)$headers;
             $options[CURLOPT_POSTFIELDS] = $body;
         } else {
-            $options[CURLOPT_URL] = $url . '?' . http_build_query(json_decode($body));
+	        $options[CURLOPT_URL] = $url . '?' . http_build_query(json_decode($body));
             $mergedHeaders = $headers;
         }
 

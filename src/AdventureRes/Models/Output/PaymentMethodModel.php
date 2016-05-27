@@ -25,8 +25,9 @@ class PaymentMethodModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'PaymentMethodId' => Validator::intType(),
-          'CreditCard'      => Validator::stringType()
+          'PaymentMethodId' => Validator::numeric(),
+          'CreditCard'      => Validator::stringType(),
+          'Result'          => Validator::optional(Validator::stringType())
         ];
     }
 }
