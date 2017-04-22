@@ -39,7 +39,7 @@ class AdventureRes extends AbstractAdventureResBase
      * @param string $username
      * @param string $password
      * @param int $location
-     * @param string $dataHandler The name of the data handler class to use. Defaults to `PhpSession`.
+     * @param string $dataHandler The name of the data handler class to use. Defaults to `\AdventureRes\PersistentData\PhpSessionPersistentDataHandler`.
      */
     public function __construct($baseDomain, $apiKey, $username, $password, $location, $dataHandler = null)
     {
@@ -49,7 +49,7 @@ class AdventureRes extends AbstractAdventureResBase
     /**
      * A shortcut method to get an instance of the Service service
      *
-*@return AdventureResServiceService
+     * @return AdventureResServiceService
      */
     public function service()
     {
@@ -59,7 +59,7 @@ class AdventureRes extends AbstractAdventureResBase
     /**
      * A shortcut method to get an instance of the Reservation service
      *
-*@return AdventureResReservationService
+     * @return AdventureResReservationService
      */
     public function reservation()
     {
@@ -69,7 +69,7 @@ class AdventureRes extends AbstractAdventureResBase
     /**
      * Gets the configured app.
      *
-*@return AdventureResApp
+     * @return AdventureResApp
      */
     public function getApp()
     {

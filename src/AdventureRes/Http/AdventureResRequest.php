@@ -29,9 +29,10 @@ class AdventureResRequest extends AbstractAdventureResBase
      * @var array A keyed map of the API services.
      */
     protected $serviceScopes = [
-      'security' => '/Security.svc',
-      'service' => '/Service.svc',
-      'reservation' => '/Reservation.svc'
+        'security'    => '/Security.svc',
+        'service'     => '/Service.svc',
+        'reservation' => '/Reservation.svc',
+        'package'     => '/Package.svc',
     ];
 
     /**
