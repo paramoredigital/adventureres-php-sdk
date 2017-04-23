@@ -10,6 +10,7 @@ namespace AdventureRes\Services;
 use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Models\Input\GroupListInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
+use AdventureRes\Models\Input\PackageDisplayInputModel;
 use AdventureRes\Models\Output\GroupModel;
 use AdventureRes\Models\Output\PackageModel;
 
@@ -26,6 +27,7 @@ class AdventureResPackageService extends AbstractAdventureResService
     const API_SERVICE = 'package';
     const GROUP_LIST_ENDPOINT = '/Groups';
     const PACKAGE_AVAILABILITY_ENDPOINT = '/Availability';
+    const PACKAGE_DISPLAY_ENDPOINT = '/Display';
 
     /**
      * Provides the ability to display the Package Groups that are available for a certain date.
@@ -49,7 +51,7 @@ class AdventureResPackageService extends AbstractAdventureResService
         $models = [];
 
         foreach ($groups as $group) {
-            $models[] = GroupModel::populateModel((array) $group);
+            $models[] = GroupModel::populateModel((array)$group);
         }
 
         return $models;
@@ -77,9 +79,30 @@ class AdventureResPackageService extends AbstractAdventureResService
         $availability = $response->getDecodedBody();
 
         foreach ($availability as $option) {
-            $options[] = PackageModel::populateModel((array) $option);
+            $options[] = PackageModel::populateModel((array)$option);
         }
 
         return $options;
+    }
+
+    /**
+     * Provides the ability to display the Package.
+     *
+     * @param PackageDisplayInputModel $inputModel
+     * @return \AdventureRes\Models\AbstractAdventureResModel|mixed
+     * @throws AdventureResSDKException
+     */
+    public function getPackage(PackageDisplayInputModel $inputModel)
+    {
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
+        $response = $this->makeApiCall('GET', self::PACKAGE_DISPLAY_ENDPOINT, $params);
+        $packages = $response->getDecodedBody();
+
+        return PackageModel::populateModel((array) $packages[0]);
     }
 }

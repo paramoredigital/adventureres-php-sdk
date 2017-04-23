@@ -11,6 +11,7 @@ use AdventureRes\AdventureResApp;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
 use AdventureRes\Models\Input\GroupListInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
+use AdventureRes\Models\Input\PackageDisplayInputModel;
 use AdventureRes\Services\AdventureResPackageService;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use Mockery as m;
@@ -36,10 +37,10 @@ class AdventureResPackageServiceTest extends AbstractHttpClientTest
 
     public function setUp()
     {
-        $this->curlMock   = m::mock('AdventureRes\HttpClients\AdventureResCurl');
+        $this->curlMock = m::mock('AdventureRes\HttpClients\AdventureResCurl');
         $this->curlClient = new AdventureResCurlHttpClient($this->curlMock);
-        $this->app        = new AdventureResApp('http://foo.com', 'myApiKey', 'myUser', 'myPass', 10);
-        $this->service    = new AdventureResPackageService($this->app, $this->curlClient, false);
+        $this->app = new AdventureResApp('http://foo.com', 'myApiKey', 'myUser', 'myPass', 10);
+        $this->service = new AdventureResPackageService($this->app, $this->curlClient, false);
 
         $this->service->setSessionId('mySessionId');
 
@@ -91,8 +92,32 @@ class AdventureResPackageServiceTest extends AbstractHttpClientTest
     public function testGetServiceAvailabilityWithInvalidInputThrowsException()
     {
         /** @var \AdventureRes\Models\Input\PackageAvailabilityInputModel $input */
-        $input   = PackageAvailabilityInputModel::populateModel([]);
+        $input = PackageAvailabilityInputModel::populateModel([]);
         $options = $this->service->getPackageAvailability($input);
+    }
+
+    public function testGetPackage()
+    {
+        $this->setupCurlMock($this->fakeRawBodyPackageDisplay);
+
+        /** @var \AdventureRes\Models\Input\PackageDisplayInputModel $input */
+        $input = PackageDisplayInputModel::populateModel(['PackageId' => 123]);
+        $package = $this->service->getPackage($input);
+
+        $package->isValid();
+
+        $this->assertInstanceOf('\AdventureRes\Models\Output\PackageModel', $package);
+        $this->assertTrue($package->isValid());
+    }
+
+    /**
+     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     */
+    public function testGetServiceWithInvalidInputThrowsException()
+    {
+        /** @var \AdventureRes\Models\Input\PackageDisplayInputModel $input */
+        $input = PackageDisplayInputModel::populateModel([]);
+        $package = $this->service->getPackage($input);
     }
 
     private function setupCurlMock($body)

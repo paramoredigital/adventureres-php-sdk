@@ -107,5 +107,9 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyPackageAvailability = "[{ \"PackageId\": \"23\", \"Description\" : \"Fall Upper Gauley Splash Dash\", \"AdultRate\": 179.00, \"YouthRate\": 169.00, \"Comment\": \" \", \"Available\": true, \"Result\": \"SUCCESS\"}]";
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageDisplay = '{"Result": "[{ \"PackageId\": \"23\", \"Description\" : \"Fall Upper Gauley Splash Dash\", \"URL\": \"Fall Upper Gauley Splash Dash\", \"AdultRate\": 179.00, \"YouthRate\": 169.00, \"Comment\": \"Fall Upper Gauley Splash Dash\", \"Result\": \"SUCCESS\" }]"}';
 
 }
