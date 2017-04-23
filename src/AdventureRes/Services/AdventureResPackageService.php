@@ -55,6 +55,13 @@ class AdventureResPackageService extends AbstractAdventureResService
         return $models;
     }
 
+    /**
+     * Provides the ability to display the Package Availability for a certain date.
+     *
+     * @param PackageAvailabilityInputModel $inputModel
+     * @return array
+     * @throws AdventureResSDKException
+     */
     public function getPackageAvailability(PackageAvailabilityInputModel $inputModel)
     {
         $options = [];

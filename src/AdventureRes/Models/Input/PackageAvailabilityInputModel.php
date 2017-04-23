@@ -36,6 +36,9 @@ class PackageAvailabilityInputModel extends AbstractAdventureResModel
         parent::__construct($attributes);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function defineAttributes()
     {
         return [
