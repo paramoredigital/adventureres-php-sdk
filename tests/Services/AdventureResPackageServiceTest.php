@@ -10,6 +10,7 @@ namespace Services;
 use AdventureRes\AdventureResApp;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
 use AdventureRes\Models\Input\GroupListInputModel;
+use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Services\AdventureResPackageService;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use Mockery as m;
@@ -59,6 +60,39 @@ class AdventureResPackageServiceTest extends AbstractHttpClientTest
         $this->assertNotEmpty($groupList);
         $this->assertInstanceOf('\AdventureRes\Models\Output\GroupModel', $groupList[0]);
         $this->assertTrue($groupList[0]->isValid());
+    }
+
+    public function testGetPackageAvailability()
+    {
+        $this->setupCurlMock($this->fakeRawBodyPackageAvailability);
+
+        /** @var \AdventureRes\Models\Input\PackageAvailabilityInputModel $input */
+        $input = PackageAvailabilityInputModel::populateModel([
+            'PackageGroupId' => 123,
+            'ResDate'        => '06/30/2017',
+            'AdultQty'       => 2,
+            'YouthQty'       => 0,
+            'Units'          => 0,
+        ]);
+        $options = $this->service->getPackageAvailability($input);
+        $firstOption = $options[0];
+
+        $firstOption->isValid();
+
+        $this->assertInternalType('array', $options);
+        $this->assertNotEmpty($options);
+        $this->assertInstanceOf('\AdventureRes\Models\Output\PackageModel', $firstOption);
+        $this->assertTrue($firstOption->isValid());
+    }
+
+    /**
+     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     */
+    public function testGetServiceAvailabilityWithInvalidInputThrowsException()
+    {
+        /** @var \AdventureRes\Models\Input\PackageAvailabilityInputModel $input */
+        $input   = PackageAvailabilityInputModel::populateModel([]);
+        $options = $this->service->getPackageAvailability($input);
     }
 
     private function setupCurlMock($body)

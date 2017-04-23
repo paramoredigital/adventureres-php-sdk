@@ -9,7 +9,9 @@ namespace AdventureRes\Services;
 
 use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Models\Input\GroupListInputModel;
+use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Models\Output\GroupModel;
+use AdventureRes\Models\Output\PackageModel;
 
 
 /**
@@ -23,6 +25,7 @@ class AdventureResPackageService extends AbstractAdventureResService
      */
     const API_SERVICE = 'package';
     const GROUP_LIST_ENDPOINT = '/Groups';
+    const PACKAGE_AVAILABILITY_ENDPOINT = '/Availability';
 
     /**
      * Provides the ability to display the Package Groups that are available for a certain date.
@@ -50,5 +53,26 @@ class AdventureResPackageService extends AbstractAdventureResService
         }
 
         return $models;
+    }
+
+    public function getPackageAvailability(PackageAvailabilityInputModel $inputModel)
+    {
+        $options = [];
+
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
+        $params['LocationId'] = $this->app->getLocation();
+        $response = $this->makeApiCall('GET', self::PACKAGE_AVAILABILITY_ENDPOINT, $params);
+        $availability = $response->getDecodedBody();
+
+        foreach ($availability as $option) {
+            $options[] = PackageModel::populateModel((array) $option);
+        }
+
+        return $options;
     }
 }
