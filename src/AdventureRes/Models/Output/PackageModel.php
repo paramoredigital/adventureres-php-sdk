@@ -10,6 +10,7 @@ namespace AdventureRes\Models\Output;
 
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * Class PackageModel
@@ -34,7 +35,8 @@ class PackageModel extends AbstractAdventureResModel
             'AdultRate'   => Validator::optional(Validator::floatType()),
             'YouthRate'   => Validator::optional(Validator::floatType()),
             'Comment'     => Validator::optional(Validator::stringType()),
-            'Available'   => Validator::boolType()
+            'URL'         => Validator::optional(Validator::stringType()),
+            'Available'   => Validator::optional(Validator::boolType()),
         ];
     }
 

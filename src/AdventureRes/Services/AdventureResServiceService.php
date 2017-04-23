@@ -85,7 +85,7 @@ class AdventureResServiceService extends AbstractAdventureResService
     /**
      * Gets information about a service.
      *
-*@param ServiceDisplayInputModel $inputModel
+     * @param ServiceDisplayInputModel $inputModel
      * @return \AdventureRes\Models\AbstractAdventureResModel
      * @throws AdventureResSDKException
      */
