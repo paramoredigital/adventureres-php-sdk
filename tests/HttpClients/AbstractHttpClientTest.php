@@ -99,5 +99,9 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyConfirmationMessage = '{"Result": "[{\"ReservationId\": 10001, \"Confirmation\":\"An email has been sent to you with important details regarding your itinerary.<p><b>PLEASE READ IT CAREFULLY!<\/b><\/p><p> If there are any problems with the details on your quote please contact our office as soon as possible. <\/p><p><b>PLEASE BE AWARE. YOU HAVE NOT MADE A RESERVATION. THIS IS ONLY A QUOTE.<\/b><\/p><p> IF YOU WANT TO CONVERT YOUR QUOTE INTO A RESERVATION PLEASE CONTACT OUR OFFICE.<\/p><p><br><\/p>\", \"Result\":\"SUCCESS\" }]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageGroupList = '{"Result": "[{\"PackageGroupId\": \"23\", \"Description\" : \"Fall Upper Gauley Splash Dash\", \"Result\": \"SUCCESS\"}]"}';
 
 }
