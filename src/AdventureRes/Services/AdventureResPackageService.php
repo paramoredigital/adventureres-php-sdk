@@ -12,6 +12,7 @@ use AdventureRes\Models\Input\GroupListInputModel;
 use AdventureRes\Models\Input\PackageAddInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Models\Input\PackageDisplayInputModel;
+use AdventureRes\Models\Input\PackageRemoveInputModel;
 use AdventureRes\Models\Output\GroupModel;
 use AdventureRes\Models\Output\PackageModel;
 use AdventureRes\Models\Output\ReservationModel;
@@ -32,6 +33,7 @@ class AdventureResPackageService extends AbstractAdventureResService
     const PACKAGE_AVAILABILITY_ENDPOINT = '/Availability';
     const PACKAGE_DISPLAY_ENDPOINT = '/Display';
     const PACKAGE_ADD_ENDPOINT = '/Add';
+    const PACKAGE_REMOVE_ENDPOINT = '/Remove';
 
     /**
      * Provides the ability to display the Package Groups that are available for a certain date.
@@ -142,5 +144,35 @@ class AdventureResPackageService extends AbstractAdventureResService
         }
 
         return $reservation;
+    }
+
+    /**
+     * Removes a package from a reservation. If the result of the call leaves the reservation with zero
+     * services/packages, the reservation id in the session is set back to 0.
+     *
+     * @param PackageRemoveInputModel $inputModel
+     * @return mixed
+     * @throws AdventureResSDKException
+     */
+    public function removePackageFromReservation(PackageRemoveInputModel $inputModel)
+    {
+        $dataHandler = $this->app->getDataHandler();
+        $reservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID);
+
+        if (!$inputModel->isValid() || is_null($reservationId)) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params = $inputModel->getAttributes();
+        $params['ReservationId'] = $reservationId;
+        $params['Session'] = $this->getSessionId();
+        $response = $this->makeApiCall('POST', self::PACKAGE_REMOVE_ENDPOINT, $params);
+        $result = $response->getDecodedBody()[0];
+
+        if ($result->ReservationId !== $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID)) {
+            $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, $result->ReservationId);
+        }
+
+        return $result->PackageId;
     }
 }
