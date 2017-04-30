@@ -140,6 +140,16 @@ class AdventureResPackageServiceTest extends AbstractHttpClientTest
         $this->assertTrue($result->isValid());
     }
 
+    /**
+     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     */
+    public function testAddServiceWithInvalidInputThrowsException()
+    {
+        /** @var \AdventureRes\Models\Input\PackageAddInputModel $input */
+        $input   = PackageAddInputModel::populateModel([]);
+        $options = $this->service->addPackageToReservation($input);
+    }
+
     private function setupCurlMock($body)
     {
         $this->curlMock
