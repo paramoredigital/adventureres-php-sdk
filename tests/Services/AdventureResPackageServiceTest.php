@@ -10,6 +10,7 @@ namespace Services;
 use AdventureRes\AdventureResApp;
 use AdventureRes\HttpClients\AdventureResCurlHttpClient;
 use AdventureRes\Models\Input\GroupListInputModel;
+use AdventureRes\Models\Input\PackageAddInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Models\Input\PackageDisplayInputModel;
 use AdventureRes\Services\AdventureResPackageService;
@@ -118,6 +119,25 @@ class AdventureResPackageServiceTest extends AbstractHttpClientTest
         /** @var \AdventureRes\Models\Input\PackageDisplayInputModel $input */
         $input = PackageDisplayInputModel::populateModel([]);
         $package = $this->service->getPackage($input);
+    }
+
+    public function testAddPackageToReservation()
+    {
+        $this->setupCurlMock($this->fakeRawBodyPackageAdd);
+
+        $input = PackageAddInputModel::populateModel([
+            'PackageId'    => 5,
+            'ResDate'      => '7/30/2016',
+            'AdultQty'     => 2,
+            'YouthQty'     => 0,
+            'Units'        => 0
+        ]);
+
+        /** @var \AdventureRes\Models\Output\ReservationModel $result */
+        $result = $this->service->addPackageToReservation($input);
+
+        $this->assertInstanceOf('\AdventureRes\Models\Output\ReservationModel', $result);
+        $this->assertTrue($result->isValid());
     }
 
     private function setupCurlMock($body)
