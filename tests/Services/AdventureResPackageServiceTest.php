@@ -13,6 +13,9 @@ use AdventureRes\Models\Input\GroupListInputModel;
 use AdventureRes\Models\Input\PackageAddInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Models\Input\PackageDisplayInputModel;
+use AdventureRes\Models\Input\PackageRemoveInputModel;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
+use AdventureRes\PersistentData\PhpSessionPersistentDataHandler;
 use AdventureRes\Services\AdventureResPackageService;
 use AdventureRes\Tests\HttpClients\AbstractHttpClientTest;
 use Mockery as m;
@@ -148,6 +151,47 @@ class AdventureResPackageServiceTest extends AbstractHttpClientTest
         /** @var \AdventureRes\Models\Input\PackageAddInputModel $input */
         $input   = PackageAddInputModel::populateModel([]);
         $options = $this->service->addPackageToReservation($input);
+    }
+
+    public function testRemovePackageFromReservation()
+    {
+        $dataHandler = new PhpSessionPersistentDataHandler();
+
+        $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, 111);
+        $this->setupCurlMock($this->fakeRawBodyPackageRemove);
+
+        /** @var \AdventureRes\Models\Input\PackageRemoveInputModel $input */
+        $input = PackageRemoveInputModel::populateModel(['PackageId' => 23]);
+
+        $packageRemoved = $this->service->removePackageFromReservation($input);
+
+        $this->assertEquals(23, $packageRemoved);
+        $this->assertEquals(0, $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, 0));
+    }
+
+    /**
+     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     */
+    public function testRemovingServiceWithoutReservationIdThrowsException()
+    {
+        $dataHandler = new PhpSessionPersistentDataHandler();
+
+        /** @var \AdventureRes\Models\Input\PackageRemoveInputModel$input */
+        $input   = PackageRemoveInputModel::populateModel(['PackageId' => 23]);
+        $options = $this->service->removePackageFromReservation($input);
+    }
+
+    /**
+     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     */
+    public function testRemovingServiceWithInvalidInputThrowsException()
+    {
+        $dataHandler = new PhpSessionPersistentDataHandler();
+        $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, 111);
+
+        /** @var \AdventureRes\Models\Input\PackageRemoveInputModel$input */
+        $input   = PackageRemoveInputModel::populateModel([]);
+        $options = $this->service->removePackageFromReservation($input);
     }
 
     private function setupCurlMock($body)

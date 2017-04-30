@@ -114,6 +114,9 @@ Access-Control-Allow-Origin: *\r\n\r\n";
     /**
      * @var string A default fake body
      */
-    protected $fakeRawBodyPackageAdd = '{"Result": "[{\"ReservationId\":140533,\"CustomerId\":0, \"PackageString\":\"512,7/4/2014,00:00:00,1,0,1\", \"Available\":true,\"Result\": \"SUCCESS\"}]"}';
-
+    protected $fakeRawBodyPackageAdd = '{"Result": "[{\"ReservationId\":0,\"CustomerId\":0, \"PackageString\":\"512,7/4/2014,00:00:00,1,0,1\", \"Available\":true,\"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageRemove = '{"Result": "[{\"ReservationId\": 0, \"PackageId\": 23, \"Result\": \"SUCCESS\"}]"}';
 }
