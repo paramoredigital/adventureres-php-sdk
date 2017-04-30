@@ -9,10 +9,13 @@ namespace AdventureRes\Services;
 
 use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Models\Input\GroupListInputModel;
+use AdventureRes\Models\Input\PackageAddInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Models\Input\PackageDisplayInputModel;
 use AdventureRes\Models\Output\GroupModel;
 use AdventureRes\Models\Output\PackageModel;
+use AdventureRes\Models\Output\ReservationModel;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
 
 
 /**
@@ -28,6 +31,7 @@ class AdventureResPackageService extends AbstractAdventureResService
     const GROUP_LIST_ENDPOINT = '/Groups';
     const PACKAGE_AVAILABILITY_ENDPOINT = '/Availability';
     const PACKAGE_DISPLAY_ENDPOINT = '/Display';
+    const PACKAGE_ADD_ENDPOINT = '/Add';
 
     /**
      * Provides the ability to display the Package Groups that are available for a certain date.
@@ -104,5 +108,39 @@ class AdventureResPackageService extends AbstractAdventureResService
         $packages = $response->getDecodedBody();
 
         return PackageModel::populateModel((array) $packages[0]);
+    }
+
+    /**
+     * Adds a package to a customer's reservation. If the reservation hasn't been set, it creates a new reservation ID.
+     *
+     * @param PackageAddInputModel $inputModel
+     * @return \AdventureRes\Models\AbstractAdventureResModel
+     * @throws AdventureResSDKException
+     */
+    public function addPackageToReservation(PackageAddInputModel $inputModel)
+    {
+        $dataHandler = $this->app->getDataHandler();
+
+        if (! $inputModel->ReservationId) {
+            $inputModel->ReservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, $defaultValue = 0);
+        }
+
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params            = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
+        $response          = $this->makeApiCall('POST', self::PACKAGE_ADD_ENDPOINT, $params);
+        $result            = $response->getDecodedBody();
+
+        /** @var ReservationModel $reservation */
+        $reservation = ReservationModel::populateModel((array)$result[0]);
+
+        if ($reservation->isValid()) {
+            $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, $reservation->getAttribute('ReservationId'));
+        }
+
+        return $reservation;
     }
 }

@@ -12,9 +12,8 @@ use Respect\Validation\Validator;
 
 /**
  * Class ReservationModel
-
  *
-*@package AdventureRes\Models\Output
+ * @package AdventureRes\Models\Output
  * @property int $ReservationId
  * @property int $CustomerId
  */
@@ -26,8 +25,10 @@ class ReservationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'CustomerId'    => Validator::optional(Validator::intType())
+            'ReservationId' => Validator::intType(),
+            'CustomerId'    => Validator::optional(Validator::intType()),
+            'PackageString' => Validator::optional(Validator::stringType()),
+            'Available'     => Validator::optional(Validator::boolType())
         ];
     }
 }
