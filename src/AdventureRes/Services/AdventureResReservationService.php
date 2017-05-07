@@ -18,6 +18,7 @@ use AdventureRes\Models\Output\ReservationConfirmationModel;
 use AdventureRes\Models\Output\ReservationItemModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\Models\Output\ReservationPolicyModel;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
 
 /**
  * Class AdventureResReservationService
@@ -38,6 +39,7 @@ class AdventureResReservationService extends AbstractAdventureResService
     const PAYMENT_DUE_ENDPOINT = '/PaymentDue';
     const PROMO_CODE_ENDPOINT = '/PromoCodeAdd';
     const CONFIRMATION_ENDPOINT = '/Confirmation';
+    const SAVE_AS_QUOTE_ENDPOINT = '/Quote';
 
     /**
      * Gets applicable policies for a reservations.
@@ -218,6 +220,27 @@ class AdventureResReservationService extends AbstractAdventureResService
         $confirmation       = $response->getDecodedBody();
 
         return ReservationConfirmationModel::populateModel((array)$confirmation[0]);
+    }
+
+    /**
+     * Provides the ability to Save a Reservation as a Quote.
+     *
+     * @return \AdventureRes\Models\Output\ReservationModel
+     */
+    public function saveReservationAsQuote()
+    {
+        $dataHandler = $this->app->getDataHandler();
+        $response = $this->makeApiCall(
+            'POST',
+            self::SAVE_AS_QUOTE_ENDPOINT,
+            [
+                'ReservationId' => $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID),
+                'Location'      => $this->app->getLocation(),
+                'Session'       => $this->getSessionId()
+            ]);
+        $result = $response->getDecodedBody();
+
+        return ReservationModel::populateModel((array)$result[0]);
     }
 }
 

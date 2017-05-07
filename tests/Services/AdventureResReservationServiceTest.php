@@ -188,6 +188,16 @@ class AdventureResReservationServiceTest extends AbstractHttpClientTest
         $this->assertTrue($confirmation->isValid());
     }
 
+    public function testSaveReservationAsQuote()
+    {
+        $this->setupCurlMock($this->fakeRawBodySaveAsQuote);
+
+        $result = $this->service->saveReservationAsQuote();
+
+        $this->assertInstanceOf(ReservationModel::class, $result);
+        $this->assertTrue($result->isValid());
+    }
+
     private function setupCurlMock($body)
     {
         $this->curlMock
