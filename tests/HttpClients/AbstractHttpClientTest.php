@@ -119,4 +119,8 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyPackageRemove = '{"Result": "[{\"ReservationId\": 0, \"PackageId\": 23, \"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyCreateCustomer = '{"Result": "[{\"CustomerId\": 123, \"Result\": \"SUCCESS\"}]"}';
 }
