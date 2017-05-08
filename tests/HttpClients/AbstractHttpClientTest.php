@@ -123,4 +123,8 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodySaveAsQuote = '{"Result": "[{\"ReservationId\": 123, \"Result\": \"SUCCESS\", \"Comment\": \"Your Quote has been saved. An E-Mail has been sent to you regarding this Quote.\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyCreateCustomer = '{"Result": "[{\"CustomerId\": 123, \"Result\": \"SUCCESS\"}]"}';
 }

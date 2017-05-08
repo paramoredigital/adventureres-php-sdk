@@ -33,6 +33,7 @@ class AdventureResRequest extends AbstractAdventureResBase
         'service'     => '/Service.svc',
         'reservation' => '/Reservation.svc',
         'package'     => '/Package.svc',
+        'customer'    => '/Customer.svc',
     ];
 
     /**
