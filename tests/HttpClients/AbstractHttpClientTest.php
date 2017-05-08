@@ -99,5 +99,41 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyConfirmationMessage = '{"Result": "[{\"ReservationId\": 10001, \"Confirmation\":\"An email has been sent to you with important details regarding your itinerary.<p><b>PLEASE READ IT CAREFULLY!<\/b><\/p><p> If there are any problems with the details on your quote please contact our office as soon as possible. <\/p><p><b>PLEASE BE AWARE. YOU HAVE NOT MADE A RESERVATION. THIS IS ONLY A QUOTE.<\/b><\/p><p> IF YOU WANT TO CONVERT YOUR QUOTE INTO A RESERVATION PLEASE CONTACT OUR OFFICE.<\/p><p><br><\/p>\", \"Result\":\"SUCCESS\" }]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageGroupList = '{"Result": "[{\"PackageGroupId\": \"23\", \"Description\" : \"Fall Upper Gauley Splash Dash\", \"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageAvailability = "[{ \"PackageId\": \"23\", \"Description\" : \"Fall Upper Gauley Splash Dash\", \"AdultRate\": 179.00, \"YouthRate\": 169.00, \"Comment\": \" \", \"Available\": true, \"Result\": \"SUCCESS\"}]";
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageDisplay = '{"Result": "[{ \"PackageId\": \"23\", \"Description\" : \"Fall Upper Gauley Splash Dash\", \"URL\": \"Fall Upper Gauley Splash Dash\", \"AdultRate\": 179.00, \"YouthRate\": 169.00, \"Comment\": \"Fall Upper Gauley Splash Dash\", \"Result\": \"SUCCESS\" }]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageAdd = '{"Result": "[{\"ReservationId\":0,\"CustomerId\":0, \"PackageString\":\"512,7/4/2014,00:00:00,1,0,1\", \"Available\":true,\"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyPackageRemove = '{"Result": "[{\"ReservationId\": 0, \"PackageId\": 23, \"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodySaveAsQuote = '{"Result": "[{\"ReservationId\": 123, \"Result\": \"SUCCESS\", \"Comment\": \"Your Quote has been saved. An E-Mail has been sent to you regarding this Quote.\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyCreateCustomer = '{"Result": "[{\"CustomerId\": 123, \"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyListFees = '{"Result": "[{\"ReservationId\": 123, \"FeeDescription\": \"Cancellation Insurance\", \"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyRemoveFees = '{"Result": "[{\"ReservationId\": 123, \"FeeDescription\": \"Cancellation Insurance\", \"Result\": \"SUCCESS\"}]"}';
 
 }

@@ -11,13 +11,16 @@ use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Models\Input\ItineraryInputModel;
 use AdventureRes\Models\Input\PaymentInputModel;
 use AdventureRes\Models\Input\PromoCodeInputModel;
+use AdventureRes\Models\Input\RemoveFeeInputModel;
 use AdventureRes\Models\Output\CostSummaryModel;
+use AdventureRes\Models\Output\FeeModel;
 use AdventureRes\Models\Output\PaymentDueModel;
 use AdventureRes\Models\Output\PaymentMethodModel;
 use AdventureRes\Models\Output\ReservationConfirmationModel;
 use AdventureRes\Models\Output\ReservationItemModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\Models\Output\ReservationPolicyModel;
+use AdventureRes\PersistentData\AdventureResSessionKeys;
 
 /**
  * Class AdventureResReservationService
@@ -38,6 +41,9 @@ class AdventureResReservationService extends AbstractAdventureResService
     const PAYMENT_DUE_ENDPOINT = '/PaymentDue';
     const PROMO_CODE_ENDPOINT = '/PromoCodeAdd';
     const CONFIRMATION_ENDPOINT = '/Confirmation';
+    const SAVE_AS_QUOTE_ENDPOINT = '/Quote';
+    const LIST_FEES_ENDPOINT = '/FeesList';
+    const REMOVE_FEES_ENDPOINT = '/FeesRemove';
 
     /**
      * Gets applicable policies for a reservations.
@@ -218,6 +224,79 @@ class AdventureResReservationService extends AbstractAdventureResService
         $confirmation       = $response->getDecodedBody();
 
         return ReservationConfirmationModel::populateModel((array)$confirmation[0]);
+    }
+
+    /**
+     * Provides the ability to Save a Reservation as a Quote.
+     *
+     * @return \AdventureRes\Models\Output\ReservationModel
+     */
+    public function saveReservationAsQuote()
+    {
+        $dataHandler = $this->app->getDataHandler();
+        $response = $this->makeApiCall(
+            'POST',
+            self::SAVE_AS_QUOTE_ENDPOINT,
+            [
+                'ReservationId' => $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID),
+                'Location'      => $this->app->getLocation(),
+                'Session'       => $this->getSessionId()
+            ]);
+        $result = $response->getDecodedBody();
+
+        return ReservationModel::populateModel((array)$result[0]);
+    }
+
+    /**
+     * Provides the ability to list online fees for Cancellation or Insurance, etc.
+     *
+     * @return array [AdventureRes\Models\Output\FeeModel]
+     */
+    public function listFees()
+    {
+        $dataHandler = $this->app->getDataHandler();
+        $response = $this->makeApiCall(
+            'GET',
+            self::LIST_FEES_ENDPOINT,
+            [
+                'ReservationId' => $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID),
+                'Location'      => $this->app->getLocation(),
+                'Session'       => $this->getSessionId()
+            ]);
+        $result = $response->getDecodedBody();
+        $fees = [];
+
+        foreach ($result as $fee) {
+            $fees[] = FeeModel::populateModel((array)$fee);
+        }
+
+        return $fees;
+    }
+
+    /**
+     * Provides ability to remove online fees for cancellation or insurance, etc.
+     * @param RemoveFeeInputModel $inputModel
+     * @return \AdventureRes\Models\Output\FeeModel
+     * @throws AdventureResSDKException
+     */
+    public function removeFees(RemoveFeeInputModel $inputModel)
+    {
+        $dataHandler = $this->app->getDataHandler();
+
+        if (!$inputModel->ReservationId) {
+            $inputModel->ReservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, $defaultValue = 0);
+        }
+
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
+        $response = $this->makeApiCall('POST', self::REMOVE_FEES_ENDPOINT, $params);
+        $result = $response->getDecodedBody();
+
+        return FeeModel::populateModel((array)$result[0]);
     }
 }
 

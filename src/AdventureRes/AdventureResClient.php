@@ -42,7 +42,7 @@ class AdventureResClient extends AbstractAdventureResBase
     /**
      * Gets the configured HTTP client.
      *
-*@return AdventureResCurlHttpClient
+     * @return AdventureResCurlHttpClient
      */
     public function getHttpClient()
     {
@@ -52,7 +52,7 @@ class AdventureResClient extends AbstractAdventureResBase
     /**
      * Sets the HTTP client to be used in all requests.
      *
-*@param AdventureResCurlHttpClient $httpClient
+     * @param AdventureResCurlHttpClient $httpClient
      */
     public function setHttpClient($httpClient)
     {
@@ -69,10 +69,10 @@ class AdventureResClient extends AbstractAdventureResBase
      */
     public function sendRequest(AdventureResRequest $request)
     {
-        $rawResponse  = $this->httpClient->send($request->getUrl(), $request->getMethod(), $request->getBody(),
-          $request->getHeaders(), $request->getTimeout());
+        $rawResponse = $this->httpClient->send($request->getUrl(), $request->getMethod(), $request->getBody(),
+            $request->getHeaders(), $request->getTimeout());
         $fullResponse = new AdventureResResponse($request, $rawResponse->getRawBody(),
-          $rawResponse->getHttpStatusCode(), $rawResponse->getRawHeaders());
+            $rawResponse->getHttpStatusCode(), $rawResponse->getRawHeaders());
 
         if ($fullResponse->isError()) {
             throw $fullResponse->getThrownException();
