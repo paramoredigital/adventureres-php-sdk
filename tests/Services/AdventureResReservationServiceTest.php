@@ -13,6 +13,7 @@ use AdventureRes\Models\Input\ItineraryInputModel;
 use AdventureRes\Models\Input\PaymentInputModel;
 use AdventureRes\Models\Input\PromoCodeInputModel;
 use AdventureRes\Models\Output\CostSummaryModel;
+use AdventureRes\Models\Output\FeeModel;
 use AdventureRes\Models\Output\PaymentDueModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\Services\AdventureResReservationService;
@@ -196,6 +197,18 @@ class AdventureResReservationServiceTest extends AbstractHttpClientTest
 
         $this->assertInstanceOf(ReservationModel::class, $result);
         $this->assertTrue($result->isValid());
+    }
+
+    public function testListFees()
+    {
+        $this->setupCurlMock($this->fakeRawBodyListFees);
+
+        $fees = $this->service->listFees();
+
+        $this->assertInternalType('array', $fees);
+        $this->assertNotEmpty($fees);
+        $this->assertInstanceOf(FeeModel::class, $fees[0]);
+        $this->assertTrue($fees[0]->isValid());
     }
 
     private function setupCurlMock($body)

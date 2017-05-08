@@ -127,4 +127,9 @@ Access-Control-Allow-Origin: *\r\n\r\n";
      * @var string A default fake body
      */
     protected $fakeRawBodyCreateCustomer = '{"Result": "[{\"CustomerId\": 123, \"Result\": \"SUCCESS\"}]"}';
+    /**
+     * @var string A default fake body
+     */
+    protected $fakeRawBodyListFees = '{"Result": "[{\"ReservationId\": 123, \"FeeDescription\": \"Cancellation Insurance\", \"Result\": \"SUCCESS\"}]"}';
+
 }

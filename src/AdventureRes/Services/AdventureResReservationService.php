@@ -12,6 +12,7 @@ use AdventureRes\Models\Input\ItineraryInputModel;
 use AdventureRes\Models\Input\PaymentInputModel;
 use AdventureRes\Models\Input\PromoCodeInputModel;
 use AdventureRes\Models\Output\CostSummaryModel;
+use AdventureRes\Models\Output\FeeModel;
 use AdventureRes\Models\Output\PaymentDueModel;
 use AdventureRes\Models\Output\PaymentMethodModel;
 use AdventureRes\Models\Output\ReservationConfirmationModel;
@@ -40,6 +41,7 @@ class AdventureResReservationService extends AbstractAdventureResService
     const PROMO_CODE_ENDPOINT = '/PromoCodeAdd';
     const CONFIRMATION_ENDPOINT = '/Confirmation';
     const SAVE_AS_QUOTE_ENDPOINT = '/Quote';
+    const LIST_FEES_ENDPOINT = '/FeesList';
 
     /**
      * Gets applicable policies for a reservations.
@@ -241,6 +243,27 @@ class AdventureResReservationService extends AbstractAdventureResService
         $result = $response->getDecodedBody();
 
         return ReservationModel::populateModel((array)$result[0]);
+    }
+
+    public function listFees()
+    {
+        $dataHandler = $this->app->getDataHandler();
+        $response = $this->makeApiCall(
+            'GET',
+            self::LIST_FEES_ENDPOINT,
+            [
+                'ReservationId' => $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID),
+                'Location'      => $this->app->getLocation(),
+                'Session'       => $this->getSessionId()
+            ]);
+        $result = $response->getDecodedBody();
+        $fees = [];
+
+        foreach ($result as $fee) {
+            $fees[] = FeeModel::populateModel((array)$fee);
+        }
+
+        return $fees;
     }
 }
 
