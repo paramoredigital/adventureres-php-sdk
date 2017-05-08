@@ -12,6 +12,7 @@ use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Models\Input\ItineraryInputModel;
 use AdventureRes\Models\Input\PaymentInputModel;
 use AdventureRes\Models\Input\PromoCodeInputModel;
+use AdventureRes\Models\Input\RemoveFeeInputModel;
 use AdventureRes\Models\Output\CostSummaryModel;
 use AdventureRes\Models\Output\FeeModel;
 use AdventureRes\Models\Output\PaymentDueModel;
@@ -209,6 +210,30 @@ class AdventureResReservationServiceTest extends AbstractHttpClientTest
         $this->assertNotEmpty($fees);
         $this->assertInstanceOf(FeeModel::class, $fees[0]);
         $this->assertTrue($fees[0]->isValid());
+    }
+
+    public function testRemoveFees()
+    {
+        $this->setupCurlMock($this->fakeRawBodyRemoveFees);
+
+        $inputModel = RemoveFeeInputModel::populateModel([
+            'ReservationId' => 123,
+            'FeeDescription' => 'Cancellation Insurance'
+        ]);
+
+        $result = $this->service->removeFees($inputModel);
+
+        $this->assertInstanceOf(FeeModel::class, $result);
+        $this->assertTrue($result->isValid());
+    }
+
+    /**
+     * @expectedException \AdventureRes\Exceptions\AdventureResSDKException
+     */
+    public function testRemoveFeesWithInvalidInputThrowsException()
+    {
+        $inputModel = new RemoveFeeInputModel();
+        $this->service->removeFees($inputModel);
     }
 
     private function setupCurlMock($body)
