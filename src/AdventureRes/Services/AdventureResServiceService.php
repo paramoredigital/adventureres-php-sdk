@@ -13,7 +13,7 @@ use AdventureRes\Models\Input\ServiceAddInputModel;
 use AdventureRes\Models\Input\ServiceAvailabilityInputModel;
 use AdventureRes\Models\Input\ServiceDisplayInputModel;
 use AdventureRes\Models\Input\ServiceRemoveInputModel;
-use AdventureRes\Models\Output\ClassificationModel;
+use AdventureRes\Models\Output\ServiceClassificationModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\Models\Output\ServiceModel;
 use AdventureRes\PersistentData\AdventureResSessionKeys;
@@ -39,7 +39,7 @@ class AdventureResServiceService extends AbstractAdventureResService
     /**
      * Gets service classifications from the API.
      *
-     * @return array [AdventureRes\Models\Output\ClassificationModel]
+     * @return array [AdventureRes\Models\Output\ServiceClassificationModel]
      * @throws \AdventureRes\Exceptions\AdventureResResponseException
      */
     public function getClassifications()
@@ -53,7 +53,7 @@ class AdventureResServiceService extends AbstractAdventureResService
         $models          = [];
 
         foreach ($classifications as $classification) {
-            $models[] = ClassificationModel::populateModel((array)$classification);
+            $models[] = ServiceClassificationModel::populateModel((array)$classification);
         }
 
         return $models;
@@ -62,7 +62,7 @@ class AdventureResServiceService extends AbstractAdventureResService
     /**
      * Gets service groups from the API. Nearly identical to `getClassifications`.
      *
-     * @return array [AdventureRes\Models\Output\ClassificationModel]
+     * @return array [AdventureRes\Models\Output\ServiceClassificationModel]
      * @throws \AdventureRes\Exceptions\AdventureResResponseException
      */
     public function getServiceGroups()
@@ -76,7 +76,7 @@ class AdventureResServiceService extends AbstractAdventureResService
         $models          = [];
 
         foreach ($classifications as $classification) {
-            $models[] = ClassificationModel::populateModel((array)$classification);
+            $models[] = ServiceClassificationModel::populateModel((array)$classification);
         }
 
         return $models;
@@ -86,7 +86,7 @@ class AdventureResServiceService extends AbstractAdventureResService
      * Gets information about a service.
      *
      * @param ServiceDisplayInputModel $inputModel
-     * @return \AdventureRes\Models\AbstractAdventureResModel
+     * @return \AdventureRes\Models\ServiceModel
      * @throws AdventureResSDKException
      */
     public function getService(ServiceDisplayInputModel $inputModel)

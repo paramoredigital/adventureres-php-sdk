@@ -8,12 +8,12 @@
 namespace AdventureRes\Services;
 
 use AdventureRes\Exceptions\AdventureResSDKException;
-use AdventureRes\Models\Input\GroupListInputModel;
 use AdventureRes\Models\Input\PackageAddInputModel;
 use AdventureRes\Models\Input\PackageAvailabilityInputModel;
 use AdventureRes\Models\Input\PackageDisplayInputModel;
+use AdventureRes\Models\Input\PackageGroupInputModel;
 use AdventureRes\Models\Input\PackageRemoveInputModel;
-use AdventureRes\Models\Output\GroupModel;
+use AdventureRes\Models\Output\PackageGroupModel;
 use AdventureRes\Models\Output\PackageModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\PersistentData\AdventureResSessionKeys;
@@ -29,7 +29,7 @@ class AdventureResPackageService extends AbstractAdventureResService
      * {@inheritdoc}
      */
     const API_SERVICE = 'package';
-    const GROUP_LIST_ENDPOINT = '/Groups';
+    const PACKAGE_GROUP_ENDPOINT = '/Groups';
     const PACKAGE_AVAILABILITY_ENDPOINT = '/Availability';
     const PACKAGE_DISPLAY_ENDPOINT = '/Display';
     const PACKAGE_ADD_ENDPOINT = '/Add';
@@ -38,11 +38,11 @@ class AdventureResPackageService extends AbstractAdventureResService
     /**
      * Provides the ability to display the Package Groups that are available for a certain date.
      *
-     * @param GroupListInputModel $inputModel
+     * @param PackageGroupInputModel $inputModel
      * @return array
      * @throws AdventureResSDKException
      */
-    public function getGroups(GroupListInputModel $inputModel)
+    public function getGroups(PackageGroupInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -52,12 +52,12 @@ class AdventureResPackageService extends AbstractAdventureResService
         $params['Session'] = $this->getSessionId();
         $params['LocationId'] = $this->app->getLocation();
 
-        $response = $this->makeApiCall('GET', self::GROUP_LIST_ENDPOINT, $params);
+        $response = $this->makeApiCall('GET', self::PACKAGE_GROUP_ENDPOINT, $params);
         $groups = $response->getDecodedBody();
         $models = [];
 
         foreach ($groups as $group) {
-            $models[] = GroupModel::populateModel((array)$group);
+            $models[] = PackageGroupModel::populateModel((array)$group);
         }
 
         return $models;

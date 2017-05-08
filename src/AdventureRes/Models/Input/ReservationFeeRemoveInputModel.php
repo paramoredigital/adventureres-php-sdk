@@ -1,32 +1,30 @@
 <?php
 /**
- * Copyright 2016 AdventureRes
+ * Copyright 2017 AdventureRes
  *
  * @license GPL-3.0+
  */
 
 namespace AdventureRes\Models\Input;
 
+
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class ItineraryInputModel
- *
+ * Class ReservationFeeRemoveInputModel
  * @package AdventureRes\Models\Input
  * @property int $ReservationId
+ * @property string $FeeDescription
  */
-class ItineraryInputModel extends AbstractAdventureResModel
+class ReservationFeeRemoveInputModel extends AbstractAdventureResModel
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType()
+            'ReservationId' => Validator::intType(),
+            'FeeDescription' => Validator::stringType()
         ];
     }
-}
 
-/* End of ItineraryInputModel.php */
+}

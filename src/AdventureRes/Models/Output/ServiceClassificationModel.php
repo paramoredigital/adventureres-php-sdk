@@ -12,14 +12,14 @@ use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class ClassificationModel
+ * Class ServiceClassificationModel
  *
  * @package AdventureRes\Models\Output
  * @property int $ServiceId
  * @property string $Description
  * @property int $ClassId
  */
-class ClassificationModel extends AbstractAdventureResModel
+class ServiceClassificationModel extends AbstractAdventureResModel
 {
     /**
      * {@inheritdoc}
@@ -34,4 +34,4 @@ class ClassificationModel extends AbstractAdventureResModel
     }
 }
 
-/* End of ClassificationModel.php */
+/* End of ServiceClassificationModel.php */

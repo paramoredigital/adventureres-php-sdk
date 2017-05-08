@@ -11,13 +11,13 @@ use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class PromoCodeInputModel
+ * Class ReservationPromoCodeAddInputModel
  *
  * @package AdventureRes\Models\Input
  * @property int $ReservationId
  * @property string $PromoCode
  */
-class PromoCodeInputModel extends AbstractAdventureResModel
+class ReservationPromoCodeAddInputModel extends AbstractAdventureResModel
 {
     /**
      * {@inheritdoc}
@@ -32,4 +32,4 @@ class PromoCodeInputModel extends AbstractAdventureResModel
 
 }
 
-/* End of PromoCodeInputModel.php */
+/* End of ReservationPromoCodeAddInputModel.php */

@@ -9,7 +9,7 @@ namespace AdventureRes\Services;
 
 
 use AdventureRes\Exceptions\AdventureResSDKException;
-use AdventureRes\Models\Input\CustomerInputModel;
+use AdventureRes\Models\Input\CustomerAddInputModel;
 use AdventureRes\Models\Output\CustomerModel;
 use AdventureRes\PersistentData\AdventureResSessionKeys;
 
@@ -24,17 +24,17 @@ class AdventureResCustomerService extends AbstractAdventureResService
     /**
      * Provides the ability to insert a New Customer Record and optionally tie it to a Reservation.
      *
-     * @param CustomerInputModel $inputModel
+     * @param CustomerAddInputModel $inputModel
      * @return \AdventureRes\Models\Output\CustomerModel
      * @throws AdventureResSDKException
      */
-    public function createCustomer(CustomerInputModel $inputModel)
+    public function createCustomer(CustomerAddInputModel $inputModel)
     {
         $dataHandler = $this->app->getDataHandler();
 
-        if (!$inputModel->ReservationId) {
-            $inputModel->ReservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, $defaultValue = 0);
-        }
+//        if (!$inputModel->ReservationId) {
+//            $inputModel->ReservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, $defaultValue = 0);
+//        }
 
         if (!$inputModel->CustomerId) {
             $inputModel->CustomerId = $dataHandler->get(AdventureResSessionKeys::CUSTOMER_ID, $defaultValue = 0);
@@ -44,11 +44,11 @@ class AdventureResCustomerService extends AbstractAdventureResService
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
         }
 
-        $params = $inputModel->getAttributes();
-        $params['Session'] = $this->getSessionId();
-        $params['LocationId'] = $this->app->getLocation();
-        $response = $this->makeApiCall('POST', self::CREATE_CUSTOMER_ENDPOINT, $params);
-        $result = $response->getDecodedBody();
+        $params                 = $inputModel->getAttributes();
+        $params['Session']      = $this->getSessionId();
+        $params['LocationId']   = $this->app->getLocation();
+        $response               = $this->makeApiCall('POST', self::CREATE_CUSTOMER_ENDPOINT, $params);
+        $result                 = $response->getDecodedBody();
 
         $customer = CustomerModel::populateModel((array)$result[0]);
 

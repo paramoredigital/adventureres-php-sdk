@@ -11,7 +11,7 @@ use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class PaymentInputModel
+ * Class ReservationPaymentAddInputModel
  *
  * @package AdventureRes\Models\Input
  * @property int $ReservationId
@@ -33,7 +33,7 @@ use Respect\Validation\Validator;
  * @property float $Amount
  * @property string $PromoCode
  */
-class PaymentInputModel extends AbstractAdventureResModel
+class ReservationPaymentAddInputModel extends AbstractAdventureResModel
 {
     /**
      * {@inheritdoc}
@@ -64,4 +64,4 @@ class PaymentInputModel extends AbstractAdventureResModel
 
 }
 
-/* End of PaymentInputModel.php */
+/* End of ReservationPaymentAddInputModel.php */

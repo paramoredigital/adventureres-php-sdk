@@ -12,12 +12,12 @@ use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class GroupModel
+ * Class PackageGroupModel
  * @package AdventureRes\Models\Output
  * @property int $PackageGroupId
  * @property string $Description
  */
-class GroupModel extends AbstractAdventureResModel
+class PackageGroupModel extends AbstractAdventureResModel
 {
     /**
      * {@inheritdoc}

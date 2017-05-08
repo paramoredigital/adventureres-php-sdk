@@ -8,10 +8,10 @@
 namespace AdventureRes\Services;
 
 use AdventureRes\Exceptions\AdventureResSDKException;
-use AdventureRes\Models\Input\ItineraryInputModel;
-use AdventureRes\Models\Input\PaymentInputModel;
-use AdventureRes\Models\Input\PromoCodeInputModel;
-use AdventureRes\Models\Input\RemoveFeeInputModel;
+use AdventureRes\Models\Input\ReservationItineraryInputModel;
+use AdventureRes\Models\Input\ReservationPaymentAddInputModel;
+use AdventureRes\Models\Input\ReservationPromoCodeAddInputModel;
+use AdventureRes\Models\Input\ReservationFeeRemoveInputModel;
 use AdventureRes\Models\Output\CostSummaryModel;
 use AdventureRes\Models\Output\FeeModel;
 use AdventureRes\Models\Output\PaymentDueModel;
@@ -48,11 +48,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets applicable policies for a reservations.
      *
-     * @param ItineraryInputModel $input
+     * @param ReservationItineraryInputModel $input
      * @return array [\AdventureRes\Models\Output\ReservationPolicyModel]
      * @throws AdventureResSDKException
      */
-    public function getReservationPolicies(ItineraryInputModel $input)
+    public function getReservationPolicies(ReservationItineraryInputModel $input)
     {
         if (!$input->isValid()) {
             throw new AdventureResSDKException($input->getErrorsAsString());
@@ -74,11 +74,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets the items stored in the user's itinerary.
      *
-     * @param ItineraryInputModel $inputModel
+     * @param ReservationItineraryInputModel $inputModel
      * @return array [\AdventureRes\Models\Output\ReservationItemModel]
      * @throws AdventureResSDKException
      */
-    public function getItinerary(ItineraryInputModel $inputModel)
+    public function getItinerary(ReservationItineraryInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -100,11 +100,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets the cost summary for an itinerary.
      *
-     * @param ItineraryInputModel $inputModel
+     * @param ReservationItineraryInputModel $inputModel
      * @return \AdventureRes\Models\Output\CostSummaryModel
      * @throws AdventureResSDKException
      */
-    public function getCostSummary(ItineraryInputModel $inputModel)
+    public function getCostSummary(ReservationItineraryInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -144,11 +144,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Adds a payment to the reservation.
      *
-     * @param PaymentInputModel $inputModel
+     * @param ReservationPaymentAddInputModel $inputModel
      * @return \AdventureRes\Models\Output\ReservationModel
      * @throws AdventureResSDKException
      */
-    public function addPayment(PaymentInputModel $inputModel)
+    public function addPayment(ReservationPaymentAddInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -165,11 +165,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets the payment due for a reservation.
      *
-     * @param ItineraryInputModel $inputModel
+     * @param ReservationItineraryInputModel $inputModel
      * @return \AdventureRes\Models\Output\PaymentDueModel
      * @throws AdventureResSDKException
      */
-    public function getPaymentDue(ItineraryInputModel $inputModel)
+    public function getPaymentDue(ReservationItineraryInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -186,11 +186,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Adds a promo code to a reservation.
      *
-     * @param PromoCodeInputModel $inputModel
+     * @param ReservationPromoCodeAddInputModel $inputModel
      * @return \AdventureRes\Models\AbstractAdventureResModel
      * @throws AdventureResSDKException
      */
-    public function addPromoCode(PromoCodeInputModel $inputModel)
+    public function addPromoCode(ReservationPromoCodeAddInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -207,11 +207,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets the confirmation message for a reservation.
      *
-     * @param ItineraryInputModel $inputModel
+     * @param ReservationItineraryInputModel $inputModel
      * @return \AdventureRes\Models\AbstractAdventureResModel
      * @throws AdventureResSDKException
      */
-    public function getConfirmationMessage(ItineraryInputModel $inputModel)
+    public function getConfirmationMessage(ReservationItineraryInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -229,20 +229,21 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Provides the ability to Save a Reservation as a Quote.
      *
+     * @param ReservationItineraryInputModel $inputModel
      * @return \AdventureRes\Models\Output\ReservationModel
+     * @throws AdventureResSDKException
      */
-    public function saveReservationAsQuote()
+    public function saveReservationAsQuote(ReservationItineraryInputModel $inputModel)
     {
-        $dataHandler = $this->app->getDataHandler();
-        $response = $this->makeApiCall(
-            'POST',
-            self::SAVE_AS_QUOTE_ENDPOINT,
-            [
-                'ReservationId' => $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID),
-                'Location'      => $this->app->getLocation(),
-                'Session'       => $this->getSessionId()
-            ]);
-        $result = $response->getDecodedBody();
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+		$params             = $inputModel->getAttributes();
+		$params['Location'] = $this->app->getLocation();
+		$params['Session']  = $this->getSessionId();
+        $response           = $this->makeApiCall('POST', self::SAVE_AS_QUOTE_ENDPOINT, $params);
+        $result             = $response->getDecodedBody();
 
         return ReservationModel::populateModel((array)$result[0]);
     }
@@ -250,21 +251,21 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Provides the ability to list online fees for Cancellation or Insurance, etc.
      *
+     * @param ReservationItineraryInputModel $inputModel
      * @return array [AdventureRes\Models\Output\FeeModel]
+     * @throws AdventureResSDKException
      */
-    public function listFees()
+    public function listFees(ReservationItineraryInputModel $inputModel)
     {
-        $dataHandler = $this->app->getDataHandler();
-        $response = $this->makeApiCall(
-            'GET',
-            self::LIST_FEES_ENDPOINT,
-            [
-                'ReservationId' => $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID),
-                'Location'      => $this->app->getLocation(),
-                'Session'       => $this->getSessionId()
-            ]);
-        $result = $response->getDecodedBody();
-        $fees = [];
+	    if (!$inputModel->isValid()) {
+		    throw new AdventureResSDKException($inputModel->getErrorsAsString());
+	    }
+
+	    $params             = $inputModel->getAttributes();
+	    $params['Session']  = $this->getSessionId();
+        $response           = $this->makeApiCall('GET', self::LIST_FEES_ENDPOINT, $params);
+        $result             = $response->getDecodedBody();
+        $fees               = [];
 
         foreach ($result as $fee) {
             $fees[] = FeeModel::populateModel((array)$fee);
@@ -275,26 +276,21 @@ class AdventureResReservationService extends AbstractAdventureResService
 
     /**
      * Provides ability to remove online fees for cancellation or insurance, etc.
-     * @param RemoveFeeInputModel $inputModel
+     *
+     * @param ReservationFeeRemoveInputModel $inputModel
      * @return \AdventureRes\Models\Output\FeeModel
      * @throws AdventureResSDKException
      */
-    public function removeFees(RemoveFeeInputModel $inputModel)
+    public function removeFees(ReservationFeeRemoveInputModel $inputModel)
     {
-        $dataHandler = $this->app->getDataHandler();
-
-        if (!$inputModel->ReservationId) {
-            $inputModel->ReservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID, $defaultValue = 0);
-        }
-
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
         }
 
-        $params = $inputModel->getAttributes();
-        $params['Session'] = $this->getSessionId();
-        $response = $this->makeApiCall('POST', self::REMOVE_FEES_ENDPOINT, $params);
-        $result = $response->getDecodedBody();
+        $params             = $inputModel->getAttributes();
+        $params['Session']  = $this->getSessionId();
+        $response           = $this->makeApiCall('POST', self::REMOVE_FEES_ENDPOINT, $params);
+        $result             = $response->getDecodedBody();
 
         return FeeModel::populateModel((array)$result[0]);
     }

@@ -12,19 +12,16 @@ use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class GroupListInputModel
+ * Class ReservationFeesInputModel
  * @package AdventureRes\Models\Input
- * @property string $ResDate
+ * @property int $ReservationId
  */
-class GroupListInputModel extends AbstractAdventureResModel
+class ReservationFeesInputModel extends AbstractAdventureResModel
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function defineAttributes()
     {
         return [
-            'ResDate' => Validator::date('m/d/Y'),
+            'ReservationId' => Validator::intType(),
         ];
     }
 
