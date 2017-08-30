@@ -23,6 +23,10 @@ class AdventureResSessionKeys
      * The key used for storing a reservation ID.
      */
     const RESERVATION_ID = 'reservation_id';
+    /**
+     * The key used for storing a customer ID.
+     */
+    const CUSTOMER_ID = 'customer_id';
 }
 
 /* End of AdventureResSessionKeys.php */

@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright 2017 AdventureRes
+ *
+ * @license GPL-3.0+
+ */
+
+namespace AdventureRes\Models\Output;
+
+use AdventureRes\Models\AbstractAdventureResModel;
+use Respect\Validation\Validator;
+use Symfony\Component\Validator\Constraints\Valid;
+
+/**
+ * Class PackageModel
+ * @package AdventureRes\Models\Output
+ * @property int $PackageId
+ * @property string $Description
+ * @property float $AdultRate Optional
+ * @property float $YouthRate Optional
+ * @property string $Comment Optional
+ * @property string $URL Optional
+ * @property bool $Available Optional
+ * @property string $Result Optional
+ */
+class PackageModel extends AbstractAdventureResModel
+{
+    /**
+     * {@inheritdoc}
+     */
+    protected function defineAttributes()
+    {
+        return [
+            'PackageId'   => Validator::numeric(),
+            'Description' => Validator::stringType(),
+            'AdultRate'   => Validator::optional(Validator::numeric()),
+            'YouthRate'   => Validator::optional(Validator::numeric()),
+            'Comment'     => Validator::optional(Validator::stringType()),
+            'URL'         => Validator::optional(Validator::stringType()),
+            'Available'   => Validator::optional(Validator::boolType()),
+            'Result'      => Validator::optional(Validator::stringType())
+        ];
+    }
+}
+
+/* End of PackageModel.php */

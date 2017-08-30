@@ -24,7 +24,7 @@ class ServiceRemoveInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationItemId' => Validator::intType()
+            'ReservationItemId' => Validator::intType()
         ];
     }
 }

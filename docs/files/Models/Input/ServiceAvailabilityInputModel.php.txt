@@ -17,12 +17,12 @@ use Respect\Validation\Validator;
  * @package AdventureRes\Models\Input
  * @property int $ServiceId Can be a service ID or a service group ID.
  * @property int $LocationId
- * @property int $AdultQty Required. Default value is 0.
- * @property int $YouthQty Required. Default value is 0.
- * @property int $Units Required. Default value is 0.
+ * @property int $AdultQty Default value is 0.
+ * @property int $YouthQty Default value is 0.
+ * @property int $Units Default value is 0.
  * @property string $StartDate
  * @property string $Session
- * @property string $Display Default is group availability. Values: GROUP or ITEM.
+ * @property string $Display Valid values are GROUP or ITEM.
  */
 class ServiceAvailabilityInputModel extends AbstractAdventureResModel
 {
@@ -46,15 +46,15 @@ class ServiceAvailabilityInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ServiceId'  => Validator::intType(),
-          'LocationId' => Validator::intType(),
-          'AdultQty'   => Validator::intType(),
-          'YouthQty'   => Validator::intType(),
-          'Units'      => Validator::intType(),
-          'StartDate'  => Validator::date('m/d/Y'),
-          'Display'    => Validator::stringType()->uppercase()->oneOf(
-            Validator::equals('GROUP'),
-            Validator::equals('ITEM'))
+            'ServiceId'  => Validator::intType(),
+            'LocationId' => Validator::intType(),
+            'AdultQty'   => Validator::intType(),
+            'YouthQty'   => Validator::intType(),
+            'Units'      => Validator::intType(),
+            'StartDate'  => Validator::date('m/d/Y'),
+            'Display'    => Validator::stringType()->uppercase()->oneOf(
+              Validator::equals('GROUP'),
+              Validator::equals('ITEM'))
         ];
     }
 }

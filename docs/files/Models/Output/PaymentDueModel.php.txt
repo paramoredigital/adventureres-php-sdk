@@ -16,6 +16,7 @@ use Respect\Validation\Validator;
  * @package AdventureRes\Models\Output
  * @property int $ReservationId
  * @property float $PaymentDue
+ * @property string $Result Optional
  */
 class PaymentDueModel extends AbstractAdventureResModel
 {
@@ -25,11 +26,11 @@ class PaymentDueModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'PaymentDue'    => Validator::floatType()
+            'ReservationId' => Validator::numeric(),
+            'PaymentDue'    => Validator::numeric(),
+            'Result'        => Validator::optional(Validator::stringType())
         ];
     }
-
 }
 
 /* End of PaymentDueModel.php */

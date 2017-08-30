@@ -38,9 +38,9 @@ abstract class AbstractAdventureResModel extends AbstractAdventureResBase implem
     {
         if (is_array($attributes) || $attributes instanceof \Traversable) {
             foreach ($attributes as $attribute => $value) {
-                if ($attribute === 'Result') {
-                    continue;
-                }
+//                if ($attribute === 'Result') {
+//                    continue;
+//                }
 
                 $this->setAttribute($attribute, $value);
             }

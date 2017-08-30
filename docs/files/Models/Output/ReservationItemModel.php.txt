@@ -14,18 +14,28 @@ use Respect\Validation\Validator;
  * Class ReservationItemModel
  *
  * @package AdventureRes\Models\Output
- * @property int $ReservationItemId
+ * @property int $ReservationItemId Optional
+ * @property int $ReservationPackageItemId Optional
+ * @property int $PackageId Optional
+ * @property int $ReservationId Optional
  * @property string $Description
+ * @property string $Comments Optional
+ * @property int $ServiceId Optional
  * @property string $ServiceTime
- * @property float $AdultQty
- * @property float $YouthQty
- * @property float $TotalAdult
- * @property float $TotalYouth
+ * @property string $ServiceDate
+ * @property int $AdultQty
+ * @property int $YouthQty
+ * @property float $AdultRate
+ * @property float $YouthRate
+ * @property int $Units Optional
+ * @property float $TotalAdult Optional
+ * @property float $TotalYouth Optional
  * @property float $TotalDiscounts
  * @property float $TotalTax
  * @property float $TotalCost
  * @property string $InvoiceComments
  * @property string $Notes
+ * @property string $Result Optional
  */
 class ReservationItemModel extends AbstractAdventureResModel
 {
@@ -35,22 +45,28 @@ class ReservationItemModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationItemId' => Validator::numeric(),
-          'Description'       => Validator::stringType(),
-          'Comments'          => Validator::stringType(),
-          'ServiceId'         => Validator::intType(),
-          'ServiceTime'       => Validator::optional(Validator::date('H:i')),
-          // Legacy, perhaps? Not sure why, but it's not set in the responses...
-          'ServiceDate'       => Validator::optional(Validator::date('m/d/Y H:i:s A')),
-          'AdultQty'          => Validator::intType(),
-          'YouthQty'          => Validator::intType(),
-          'TotalAdult'        => Validator::floatType(),
-          'TotalYouth'        => Validator::floatType(),
-          'TotalDiscounts'    => Validator::floatType(),
-          'TotalTax'          => Validator::floatType(),
-          'TotalCost'         => Validator::floatType(),
-          'InvoiceComments'   => Validator::stringType(),
-          'Notes'             => Validator::stringType()
+            'ReservationItemId'        => Validator::optional(Validator::numeric()),
+            'ReservationPackageItemId' => Validator::optional(Validator::numeric()),
+            'PackageId'                => Validator::optional(Validator::numeric()),
+            'ReservationId'            => Validator::optional(Validator::numeric()),
+            'Description'              => Validator::stringType(),
+            'Comments'                 => Validator::optional(Validator::stringType()),
+            'ServiceId'                => Validator::optional(Validator::numeric()),
+            'ServiceTime'              => Validator::optional(Validator::date('H:i')),
+            'ServiceDate'              => Validator::optional(Validator::date('m/d/Y H:i:s A')),
+            'AdultQty'                 => Validator::numeric(),
+            'YouthQty'                 => Validator::numeric(),
+            'AdultRate'                => Validator::optional(Validator::numeric()),
+            'YouthRate'                => Validator::optional(Validator::numeric()),
+            'Units'                    => Validator::optional(Validator::numeric()),
+            'TotalAdult'               => Validator::numeric(),
+            'TotalYouth'               => Validator::numeric(),
+            'TotalDiscounts'           => Validator::numeric(),
+            'TotalTax'                 => Validator::numeric(),
+            'TotalCost'                => Validator::numeric(),
+            'InvoiceComments'          => Validator::stringType(),
+            'Notes'                    => Validator::optional(Validator::stringType()),
+            'Result'                   => Validator::optional(Validator::stringType())
         ];
     }
 }

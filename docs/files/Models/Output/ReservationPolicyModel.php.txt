@@ -14,9 +14,11 @@ use Respect\Validation\Validator;
  * Class ReservationPolicyModel
  *
  * @package AdventureRes\Models\Output
+ * @property int $PolicyId
  * @property string $Description
  * @property string $Details
  * @property bool $Mandatory
+ * @property string $Result Optional
  */
 class ReservationPolicyModel extends AbstractAdventureResModel
 {
@@ -26,10 +28,11 @@ class ReservationPolicyModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'PolicyId'    => Validator::intType(),
-          'Description' => Validator::stringType(),
-          'Details'     => Validator::stringType(),
-          'Mandatory'   => Validator::boolType()
+            'PolicyId'    => Validator::numeric(),
+            'Description' => Validator::stringType(),
+            'Details'     => Validator::stringType(),
+            'Mandatory'   => Validator::stringType(),
+            'Result'      => Validator::optional(Validator::stringType())
         ];
     }
 }

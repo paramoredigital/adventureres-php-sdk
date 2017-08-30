@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>AdventureRes PHP SDK</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">AdventureRes PHP SDK</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/AdventureRes.html">\AdventureRes</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">42</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1137077982"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1137077982" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1909150002"></a>
+                                <a href="../namespaces/AdventureRes.html" style="margin-left: 30px; padding-left: 0">AdventureRes</a>
+            </div>
+            <div id="namespace-1909150002" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-428403486"></a>
+                                <a href="../namespaces/AdventureRes.Authentication.html" style="margin-left: 30px; padding-left: 0">Authentication</a>
+            </div>
+            <div id="namespace-428403486" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Authentication.AdventureResSession.html">AdventureResSession</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1448749725"></a>
+                                <a href="../namespaces/AdventureRes.Exceptions.html" style="margin-left: 30px; padding-left: 0">Exceptions</a>
+            </div>
+            <div id="namespace-1448749725" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Exceptions.AdventureResModelException.html">AdventureResModelException</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Exceptions.AdventureResResponseException.html">AdventureResResponseException</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Exceptions.AdventureResSDKException.html">AdventureResSDKException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1866456502"></a>
+                                <a href="../namespaces/AdventureRes.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
+            </div>
+            <div id="namespace-1866456502" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Http.AdventureResRequest.html">AdventureResRequest</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Http.AdventureResResponse.html">AdventureResResponse</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Http.ApiRawResponse.html">ApiRawResponse</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1812681106"></a>
+                                <a href="../namespaces/AdventureRes.HttpClients.html" style="margin-left: 30px; padding-left: 0">HttpClients</a>
+            </div>
+            <div id="namespace-1812681106" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/AdventureRes.HttpClients.AdventureResHttpClientInterface.html">AdventureResHttpClientInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.HttpClients.AdventureResCurl.html">AdventureResCurl</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.HttpClients.AdventureResCurlHttpClient.html">AdventureResCurlHttpClient</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1916375425"></a>
+                                <a href="../namespaces/AdventureRes.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-1916375425" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1564994956"></a>
+                                <a href="../namespaces/AdventureRes.Models.Input.html" style="margin-left: 30px; padding-left: 0">Input</a>
+            </div>
+            <div id="namespace-1564994956" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html">CustomerAddInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.PackageAddInputModel.html">PackageAddInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.PackageAvailabilityInputModel.html">PackageAvailabilityInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.PackageDisplayInputModel.html">PackageDisplayInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.PackageGroupInputModel.html">PackageGroupInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.PackageRemoveInputModel.html">PackageRemoveInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationConfirmationInputModel.html">ReservationConfirmationInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationFeeRemoveInputModel.html">ReservationFeeRemoveInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationFeesInputModel.html">ReservationFeesInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationItineraryInputModel.html">ReservationItineraryInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationPaymentAddInputModel.html">ReservationPaymentAddInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationPromoCodeAddInputModel.html">ReservationPromoCodeAddInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ReservationQuoteInputModel.html">ReservationQuoteInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ServiceAddInputModel.html">ServiceAddInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ServiceAvailabilityInputModel.html">ServiceAvailabilityInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ServiceClassificationInputModel.html">ServiceClassificationInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ServiceDisplayInputModel.html">ServiceDisplayInputModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Input.ServiceRemoveInputModel.html">ServiceRemoveInputModel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-952221144"></a>
+                                <a href="../namespaces/AdventureRes.Models.Output.html" style="margin-left: 30px; padding-left: 0">Output</a>
+            </div>
+            <div id="namespace-952221144" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.CostSummaryModel.html">CostSummaryModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.CustomerModel.html">CustomerModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.FeeModel.html">FeeModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.PackageGroupModel.html">PackageGroupModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.PackageModel.html">PackageModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.PaymentDueModel.html">PaymentDueModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.PaymentMethodModel.html">PaymentMethodModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.ReservationConfirmationModel.html">ReservationConfirmationModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.ReservationItemModel.html">ReservationItemModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.ReservationModel.html">ReservationModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.ReservationPolicyModel.html">ReservationPolicyModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.ServiceClassificationModel.html">ServiceClassificationModel</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Models.Output.ServiceModel.html">ServiceModel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/AdventureRes.Models.AdventureResModelInterface.html">AdventureResModelInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html">AbstractAdventureResModel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1186176405"></a>
+                                <a href="../namespaces/AdventureRes.PersistentData.html" style="margin-left: 30px; padding-left: 0">PersistentData</a>
+            </div>
+            <div id="namespace-1186176405" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/AdventureRes.PersistentData.AdventureResPersistentDataInterface.html">AdventureResPersistentDataInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.PersistentData.AdventureResPersistentDataHandlerFactory.html">AdventureResPersistentDataHandlerFactory</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.PersistentData.AdventureResSessionKeys.html">AdventureResSessionKeys</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.PersistentData.PhpSessionPersistentDataHandler.html">PhpSessionPersistentDataHandler</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1252234536"></a>
+                                <a href="../namespaces/AdventureRes.Services.html" style="margin-left: 30px; padding-left: 0">Services</a>
+            </div>
+            <div id="namespace-1252234536" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.Services.AbstractAdventureResService.html">AbstractAdventureResService</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Services.AdventureResCustomerService.html">AdventureResCustomerService</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Services.AdventureResPackageService.html">AdventureResPackageService</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Services.AdventureResReservationService.html">AdventureResReservationService</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.Services.AdventureResServiceService.html">AdventureResServiceService</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/AdventureRes.AbstractAdventureResBase.html">AbstractAdventureResBase</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.AdventureRes.html">AdventureRes</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.AdventureResApp.html">AdventureResApp</a></li>
+                                                    <li class="class"><a href="../classes/AdventureRes.AdventureResClient.html">AdventureResClient</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/AdventureRes.Models.Input.html">\AdventureRes\Models\Input</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\AdventureRes\Models\Input</small>CustomerAddInputModel</h1>
+                    <p><em>Class CustomerAddInputModel</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method___set" class="">__set()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method___isset" class="">__isset()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_populateModel" class="">populateModel()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_getAttributeNames" class="">getAttributeNames()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_getAttributes" class="">getAttributes()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_getAttribute" class="">getAttribute()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_setAttribute" class="">setAttribute()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_isValid" class="">isValid()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_clearErrors" class="">clearErrors()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_hasErrors" class="">hasErrors()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_getErrors" class="">getErrors()</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#method_getErrorsAsString" class="">getErrorsAsString()</a><br />
+                                                                    <a href="../classes/AdventureRes.AbstractAdventureResBase.html#method___call" class="">__call()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_CustomerId" class="">$CustomerId</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_ReservationId" class="">$ReservationId</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_FirstName" class="">$FirstName</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_LastName" class="">$LastName</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_OrgName" class="">$OrgName</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_Address" class="">$Address</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_Address2" class="">$Address2</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_City" class="">$City</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_State" class="">$State</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_Zip" class="">$Zip</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_Country" class="">$Country</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_DOB" class="">$DOB</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_Gender" class="">$Gender</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_HomePhone" class="">$HomePhone</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_WorkPhone" class="">$WorkPhone</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_CellPhone" class="">$CellPhone</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_Email" class="">$Email</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#property_" class="">$</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/AdventureRes.Models.Input.CustomerAddInputModel.html#method_defineAttributes" class="">defineAttributes()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#property_attributes" class="">$attributes</a><br />
+                                                                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html#property_errors" class="">$errors</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Models.Input.CustomerAddInputModel.html"><div class="path-wrapper">Models/Input/CustomerAddInputModel.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Models\Input</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                        <div class="namespace-wrapper"><a href="../classes/AdventureRes.AbstractAdventureResBase.html">\AdventureRes\AbstractAdventureResBase</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html">\AdventureRes\Models\AbstractAdventureResModel</a></div>
+                                                                                                    <div class="namespace-wrapper">\AdventureRes\Models\Input\CustomerAddInputModel</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_CustomerId" name="property_CustomerId" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$CustomerId</h3>
+                <pre class="signature">$CustomerId : integer</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ReservationId" name="property_ReservationId" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$ReservationId</h3>
+                <pre class="signature">$ReservationId : integer</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_FirstName" name="property_FirstName" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$FirstName</h3>
+                <pre class="signature">$FirstName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_LastName" name="property_LastName" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$LastName</h3>
+                <pre class="signature">$LastName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_OrgName" name="property_OrgName" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$OrgName</h3>
+                <pre class="signature">$OrgName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_Address" name="property_Address" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$Address</h3>
+                <pre class="signature">$Address : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_Address2" name="property_Address2" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$Address2</h3>
+                <pre class="signature">$Address2 : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_City" name="property_City" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$City</h3>
+                <pre class="signature">$City : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_State" name="property_State" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$State</h3>
+                <pre class="signature">$State : string</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_Zip" name="property_Zip" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$Zip</h3>
+                <pre class="signature">$Zip : string</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_Country" name="property_Country" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$Country</h3>
+                <pre class="signature">$Country : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_DOB" name="property_DOB" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$DOB</h3>
+                <pre class="signature">$DOB : string</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_Gender" name="property_Gender" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$Gender</h3>
+                <pre class="signature">$Gender : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_HomePhone" name="property_HomePhone" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$HomePhone</h3>
+                <pre class="signature">$HomePhone : string</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_WorkPhone" name="property_WorkPhone" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$WorkPhone</h3>
+                <pre class="signature">$WorkPhone : string</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_CellPhone" name="property_CellPhone" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$CellPhone</h3>
+                <pre class="signature">$CellPhone : string</pre>
+                <p><em></em></p>
+                <p>Optional</p>
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_Email" name="property_Email" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$Email</h3>
+                <pre class="signature">$Email : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_" name="property_" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$</h3>
+                <pre class="signature">$ : integer</pre>
+                <p><em></em></p>
+                <p>LocationId Optional</p>
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_attributes" name="property_attributes" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$attributes</h3>
+                <pre class="signature">$attributes : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; An key/value array of attributes to assign to the model.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_errors" name="property_errors" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$errors</h3>
+                <pre class="signature">$errors : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; The errors generated by the model&#039;s validation.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(array|null  <span class="argument">$attributes = null</span>) </pre>
+                <p><em>AbstractAdventureResModel constructor.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array|null</td>
+                                <td>$attributes </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(  <span class="argument">$name</span>) : mixed</pre>
+                <p><em>PHP magic method to treat attributes from defineAttributes as properties.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\AdventureRes\Exceptions\AdventureResModelException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___set" name="method___set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__set(  <span class="argument">$name</span>,   <span class="argument">$value</span>) </pre>
+                <p><em>PHP magic method to treat attributes from defineAttributes as properties.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\AdventureRes\Exceptions\AdventureResModelException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___isset" name="method___isset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__isset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__isset(  <span class="argument">$name</span>) : boolean</pre>
+                <p><em>PHP magic method to treat attributes from defineAttributes as properties.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_populateModel" name="method_populateModel" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">populateModel()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">populateModel(array  <span class="argument">$attributes</span>) : \AdventureRes\Models\AbstractAdventureResModel</pre>
+                <p><em>Populates a new model instance with a given set of attributes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$attributes </td>
+                                <td><p>An array of attributes and values to populate into the model.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html">\AdventureRes\Models\AbstractAdventureResModel</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAttributeNames" name="method_getAttributeNames" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAttributeNames()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAttributeNames() : array</pre>
+                <p><em>Returns the list of the model&#039;s attribute names.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAttributes" name="method_getAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAttributes() : array</pre>
+                <p><em>Returns an array of attributes and their assigned values of an instance of the model.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAttribute" name="method_getAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAttribute(string  <span class="argument">$name</span>) : mixed</pre>
+                <p><em>Returns the value for a specified attribute of an instance of the model.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAttribute" name="method_setAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAttribute(string  <span class="argument">$name</span>, mixed  <span class="argument">$value</span>) </pre>
+                <p><em>Sets a value for a specified attribute on the instance of the model.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isValid" name="method_isValid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isValid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isValid() : boolean</pre>
+                <p><em>Runs a validation check to see if the model instance is valid.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_clearErrors" name="method_clearErrors" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">clearErrors()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clearErrors(string|null  <span class="argument">$attributeName = null</span>) </pre>
+                <p><em>Removes errors for all attributes or a single attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|null</td>
+                                <td>$attributeName </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_hasErrors" name="method_hasErrors" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">hasErrors()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">hasErrors() : boolean</pre>
+                <p><em>Determines if the model instance contains errors.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getErrors" name="method_getErrors" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getErrors()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getErrors() : array|null</pre>
+                <p><em>Returns an array of errors from the model instance.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getErrorsAsString" name="method_getErrorsAsString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getErrorsAsString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getErrorsAsString() : array|null</pre>
+                <p><em>Returns all errors as a string.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.Models.AbstractAdventureResModel.html"><div class="path-wrapper">\AdventureRes\Models\AbstractAdventureResModel</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___call" name="method___call" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__call()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__call(  <span class="argument">$command</span>,   <span class="argument">$arguments</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$command </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$arguments </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/AdventureRes.AbstractAdventureResBase.html"><div class="path-wrapper">\AdventureRes\AbstractAdventureResBase</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_defineAttributes" name="method_defineAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">defineAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">defineAttributes() : array</pre>
+                <p><em>Defines this model&#039;s attributes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">CustomerAddInputModel.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Models/Input/CustomerAddInputModel.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/AdventureRes.html">\AdventureRes</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 30th, 2017 at 20:58.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
