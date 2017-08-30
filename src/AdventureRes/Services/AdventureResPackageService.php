@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2017 AdventureRes
  *
@@ -18,9 +19,9 @@ use AdventureRes\Models\Output\PackageModel;
 use AdventureRes\Models\Output\ReservationModel;
 use AdventureRes\PersistentData\AdventureResSessionKeys;
 
-
 /**
  * Class AdventureResPackageService
+ *
  * @package AdventureRes\Services
  */
 class AdventureResPackageService extends AbstractAdventureResService
@@ -50,8 +51,6 @@ class AdventureResPackageService extends AbstractAdventureResService
 
         $params = $inputModel->getAttributes();
         $params['Session'] = $this->getSessionId();
-        $params['LocationId'] = $this->app->getLocation();
-
         $response = $this->makeApiCall('GET', self::PACKAGE_GROUP_ENDPOINT, $params);
         $groups = $response->getDecodedBody();
         $models = [];
@@ -80,7 +79,6 @@ class AdventureResPackageService extends AbstractAdventureResService
 
         $params = $inputModel->getAttributes();
         $params['Session'] = $this->getSessionId();
-        $params['LocationId'] = $this->app->getLocation();
         $response = $this->makeApiCall('GET', self::PACKAGE_AVAILABILITY_ENDPOINT, $params);
         $availability = $response->getDecodedBody();
 
@@ -139,7 +137,8 @@ class AdventureResPackageService extends AbstractAdventureResService
         /** @var ReservationModel $reservation */
         $reservation = ReservationModel::populateModel((array)$result[0]);
 
-        if ($reservation->isValid()) {
+        if ($reservation->isValid() && $reservation->ReservationId
+          && $reservation->ReservationId !== $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID)) {
             $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, $reservation->getAttribute('ReservationId'));
         }
 
@@ -157,14 +156,12 @@ class AdventureResPackageService extends AbstractAdventureResService
     public function removePackageFromReservation(PackageRemoveInputModel $inputModel)
     {
         $dataHandler = $this->app->getDataHandler();
-        $reservationId = $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID);
 
-        if (!$inputModel->isValid() || is_null($reservationId)) {
+        if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
         }
 
         $params = $inputModel->getAttributes();
-        $params['ReservationId'] = $reservationId;
         $params['Session'] = $this->getSessionId();
         $response = $this->makeApiCall('POST', self::PACKAGE_REMOVE_ENDPOINT, $params);
         $result = $response->getDecodedBody()[0];
