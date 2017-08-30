@@ -9,6 +9,7 @@
 namespace AdventureRes\Services;
 
 use AdventureRes\Exceptions\AdventureResSDKException;
+use AdventureRes\Models\Input\ServiceClassificationInputModel;
 use AdventureRes\Models\Input\ServiceAddInputModel;
 use AdventureRes\Models\Input\ServiceAvailabilityInputModel;
 use AdventureRes\Models\Input\ServiceDisplayInputModel;
@@ -39,15 +40,18 @@ class AdventureResServiceService extends AbstractAdventureResService
     /**
      * Gets service classifications from the API.
      *
+     * @param ServiceClassificationInputModel $inputModel
      * @return array [AdventureRes\Models\Output\ServiceClassificationModel]
      * @throws \AdventureRes\Exceptions\AdventureResResponseException
      */
-    public function getClassifications()
+    public function getClassifications(ServiceClassificationInputModel $inputModel)
     {
-        $params          = [
-          'LocationId' => $this->app->getLocation(),
-          'Session'    => $this->getSessionId()
-        ];
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params            = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
         $response        = $this->makeApiCall('GET', self::CLASSIFICATION_ENDPOINT, $params);
         $classifications = $response->getDecodedBody();
         $models          = [];
@@ -62,21 +66,24 @@ class AdventureResServiceService extends AbstractAdventureResService
     /**
      * Gets service groups from the API. Nearly identical to `getClassifications`.
      *
+     * @param ServiceClassificationInputModel $inputModel
      * @return array [AdventureRes\Models\Output\ServiceClassificationModel]
      * @throws \AdventureRes\Exceptions\AdventureResResponseException
      */
-    public function getServiceGroups()
+    public function getServiceGroups(ServiceClassificationInputModel $inputModel)
     {
-        $params          = [
-          'LocationId' => $this->app->getLocation(),
-          'Session'    => $this->getSessionId()
-        ];
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
+
+        $params            = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
         $response        = $this->makeApiCall('GET', self::SERVICE_GROUP_ENDPOINT, $params);
-        $classifications = $response->getDecodedBody();
+        $serviceGroups = $response->getDecodedBody();
         $models          = [];
 
-        foreach ($classifications as $classification) {
-            $models[] = ServiceClassificationModel::populateModel((array)$classification);
+        foreach ($serviceGroups as $serviceGroup) {
+            $models[] = ServiceClassificationModel::populateModel((array)$serviceGroup);
         }
 
         return $models;
@@ -120,7 +127,6 @@ class AdventureResServiceService extends AbstractAdventureResService
 
         $params               = $inputModel->getAttributes();
         $params['Session']    = $this->getSessionId();
-        $params['LocationId'] = $this->app->getLocation();
         $response             = $this->makeApiCall('GET', self::SERVICE_AVAILABILITY_ENDPOINT, $params);
         $availability         = $response->getDecodedBody();
 
@@ -158,11 +164,12 @@ class AdventureResServiceService extends AbstractAdventureResService
         /** @var ReservationModel $reservation */
         $reservation = ReservationModel::populateModel((array)$result[0]);
 
-        if ($reservation->isValid()) {
+        if ($reservation->isValid() && $reservation->ReservationId
+          && $reservation->ReservationId !== $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID)) {
             $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, $reservation->getAttribute('ReservationId'));
         }
 
-        return ReservationModel::populateModel((array)$result[0]);
+        return $reservation;
     }
 
     /**
@@ -186,13 +193,12 @@ class AdventureResServiceService extends AbstractAdventureResService
         $response          = $this->makeApiCall('POST', self::SERVICE_REMOVE_ENDPOINT, $params);
         $result            = $response->getDecodedBody()[0];
 
-        if ($result->ReservationId !== $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID)) {
+        if ($result->ReservationId && $result->ReservationId !== $dataHandler->get(AdventureResSessionKeys::RESERVATION_ID)) {
             $dataHandler->set(AdventureResSessionKeys::RESERVATION_ID, $result->ReservationId);
         }
 
         return $result->ReservationItemId;
     }
-
 }
 
 /* End of AdventureResServiceService.php */
