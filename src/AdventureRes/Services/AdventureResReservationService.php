@@ -8,10 +8,13 @@
 namespace AdventureRes\Services;
 
 use AdventureRes\Exceptions\AdventureResSDKException;
+use AdventureRes\Models\Input\ReservationConfirmationInputModel;
 use AdventureRes\Models\Input\ReservationItineraryInputModel;
 use AdventureRes\Models\Input\ReservationPaymentAddInputModel;
 use AdventureRes\Models\Input\ReservationPromoCodeAddInputModel;
+use AdventureRes\Models\Input\ReservationFeesInputModel;
 use AdventureRes\Models\Input\ReservationFeeRemoveInputModel;
+use AdventureRes\Models\Input\ReservationQuoteInputModel;
 use AdventureRes\Models\Output\CostSummaryModel;
 use AdventureRes\Models\Output\FeeModel;
 use AdventureRes\Models\Output\PaymentDueModel;
@@ -121,20 +124,23 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets the accepted payment methods for the configured location.
      *
+     * @param ServiceClassificationInputModel $inputModel
      * @return array [\AdventureRes\Models\Output\PaymentMethodModel]
+     * @throws AdventureResSDKException
      */
-    public function getPaymentMethods()
+    public function getPaymentMethods(ServiceClassificationInputModel $inputModel)
     {
-        $params = [
-          'LocationId' => $this->app->getLocation(),
-          'Session'    => $this->getSessionId()
-        ];
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
 
-        $response       = $this->makeApiCall('GET', self::PAYMENT_METHODS_ENDPOINT, $params);
-        $paymentMethods = $response->getDecodedBody();
-        $models         = [];
+        $params            = $inputModel->getAttributes();
+        $params['Session'] = $this->getSessionId();
+        $response          = $this->makeApiCall('GET', self::PAYMENT_METHODS_ENDPOINT, $params);
+        $result            = $response->getDecodedBody();
+        $models            = [];
 
-        foreach ($paymentMethods as $method) {
+        foreach ($result as $method) {
             $models[] = PaymentMethodModel::populateModel((array)$method);
         }
 
@@ -155,6 +161,11 @@ class AdventureResReservationService extends AbstractAdventureResService
         }
 
         $params            = $inputModel->getAttributes();
+        if(!$params['CustomerId'])
+            unset($params['CustomerId']);
+        unset($params['Comments']);
+        unset($params['PromoCode']);
+
         $params['Session'] = $this->getSessionId();
         $response          = $this->makeApiCall('POST', self::PAYMENT_ADD_ENDPOINT, $params);
         $result            = $response->getDecodedBody();
@@ -207,11 +218,11 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Gets the confirmation message for a reservation.
      *
-     * @param ReservationItineraryInputModel $inputModel
+     * @param ReservationConfirmationInputModel $inputModel
      * @return \AdventureRes\Models\AbstractAdventureResModel
      * @throws AdventureResSDKException
      */
-    public function getConfirmationMessage(ReservationItineraryInputModel $inputModel)
+    public function getConfirmationMessage(ReservationConfirmationInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
@@ -229,21 +240,24 @@ class AdventureResReservationService extends AbstractAdventureResService
     /**
      * Provides the ability to Save a Reservation as a Quote.
      *
-     * @param ReservationItineraryInputModel $inputModel
+     * @param ReservationQuoteInputModel $inputModel
      * @return \AdventureRes\Models\Output\ReservationModel
      * @throws AdventureResSDKException
      */
-    public function saveReservationAsQuote(ReservationItineraryInputModel $inputModel)
+    public function saveReservationAsQuote(ReservationQuoteInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
         }
 
-		$params             = $inputModel->getAttributes();
-		$params['Location'] = $this->app->getLocation();
-		$params['Session']  = $this->getSessionId();
+        $params             = $inputModel->getAttributes();
+        $params['Location'] = $this->app->getLocation();
+        $params['Session']  = $this->getSessionId();
         $response           = $this->makeApiCall('POST', self::SAVE_AS_QUOTE_ENDPOINT, $params);
         $result             = $response->getDecodedBody();
+
+        if(empty($result))
+            return false;
 
         return ReservationModel::populateModel((array)$result[0]);
     }
@@ -255,14 +269,14 @@ class AdventureResReservationService extends AbstractAdventureResService
      * @return array [AdventureRes\Models\Output\FeeModel]
      * @throws AdventureResSDKException
      */
-    public function listFees(ReservationItineraryInputModel $inputModel)
+    public function listFees(ReservationFeesInputModel $inputModel)
     {
-	    if (!$inputModel->isValid()) {
-		    throw new AdventureResSDKException($inputModel->getErrorsAsString());
-	    }
+        if (!$inputModel->isValid()) {
+            throw new AdventureResSDKException($inputModel->getErrorsAsString());
+        }
 
-	    $params             = $inputModel->getAttributes();
-	    $params['Session']  = $this->getSessionId();
+        $params             = $inputModel->getAttributes();
+        $params['Session']  = $this->getSessionId();
         $response           = $this->makeApiCall('GET', self::LIST_FEES_ENDPOINT, $params);
         $result             = $response->getDecodedBody();
         $fees               = [];
@@ -281,7 +295,7 @@ class AdventureResReservationService extends AbstractAdventureResService
      * @return \AdventureRes\Models\Output\FeeModel
      * @throws AdventureResSDKException
      */
-    public function removeFees(ReservationFeeRemoveInputModel $inputModel)
+    public function removeFee(ReservationFeeRemoveInputModel $inputModel)
     {
         if (!$inputModel->isValid()) {
             throw new AdventureResSDKException($inputModel->getErrorsAsString());
