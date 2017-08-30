@@ -18,6 +18,7 @@ use Respect\Validation\Validator;
  * @property int $ServiceId
  * @property string $Description
  * @property int $ClassId
+ * @property string $Result Optional
  */
 class ServiceClassificationModel extends AbstractAdventureResModel
 {
@@ -27,9 +28,10 @@ class ServiceClassificationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ServiceId'   => Validator::intType(),
-          'Description' => Validator::stringType(),
-          'ClassId'     => Validator::intType()
+            'ServiceId'   => Validator::intType(),
+            'Description' => Validator::stringType(),
+            'ClassId'     => Validator::intType(),
+            'Result'      => Validator::optional(Validator::stringType())
         ];
     }
 }

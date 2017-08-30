@@ -14,8 +14,9 @@ use Respect\Validation\Validator;
  * Class ReservationConfirmationModel
  *
  * @package AdventureRes\Models\Output
- * @property int $ReservationId
- * @property string $Confirmation
+ * @property int $ReservationId Optional
+ * @property string $Confirmation Optional
+ * @property string $Result Optional
  */
 class ReservationConfirmationModel extends AbstractAdventureResModel
 {
@@ -25,11 +26,11 @@ class ReservationConfirmationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'Confirmation'  => Validator::stringType()
+            'ReservationId' => Validator::optional(Validator::numeric()),
+            'Confirmation'  => Validator::optional(Validator::oneOf(Validator::stringType(), Validator::nullType())),
+            'Result'        => Validator::optional(Validator::stringType())
         ];
     }
-
 }
 
 /* End of ReservationConfirmationModel.php */

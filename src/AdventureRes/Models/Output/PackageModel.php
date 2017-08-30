@@ -7,7 +7,6 @@
 
 namespace AdventureRes\Models\Output;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -17,10 +16,12 @@ use Symfony\Component\Validator\Constraints\Valid;
  * @package AdventureRes\Models\Output
  * @property int $PackageId
  * @property string $Description
- * @property float $AdultRate
- * @property float $YouthRate
- * @property string $Comment
- * @property bool $Available
+ * @property float $AdultRate Optional
+ * @property float $YouthRate Optional
+ * @property string $Comment Optional
+ * @property string $URL Optional
+ * @property bool $Available Optional
+ * @property string $Result Optional
  */
 class PackageModel extends AbstractAdventureResModel
 {
@@ -32,12 +33,14 @@ class PackageModel extends AbstractAdventureResModel
         return [
             'PackageId'   => Validator::numeric(),
             'Description' => Validator::stringType(),
-            'AdultRate'   => Validator::optional(Validator::floatType()),
-            'YouthRate'   => Validator::optional(Validator::floatType()),
+            'AdultRate'   => Validator::optional(Validator::numeric()),
+            'YouthRate'   => Validator::optional(Validator::numeric()),
             'Comment'     => Validator::optional(Validator::stringType()),
             'URL'         => Validator::optional(Validator::stringType()),
             'Available'   => Validator::optional(Validator::boolType()),
+            'Result'      => Validator::optional(Validator::stringType())
         ];
     }
-
 }
+
+/* End of PackageModel.php */

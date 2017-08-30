@@ -16,6 +16,13 @@ use Respect\Validation\Validator;
  * @package AdventureRes\Models\Output
  * @property int $ReservationId
  * @property int $CustomerId Optional
+ * @property bool $Approved Optional
+ * @property string $Response Optional
+ * @property string $Authorization Optional
+ * @property string $ResponseMessage Optional
+ * @property float $Amount Optional
+ * @property string $EmailResult Optional
+ * @property string $Result Optional
  * @property string $PackageString Optional
  * @property bool $Available Optional
  * @property string $Comment Optional
@@ -28,11 +35,18 @@ class ReservationModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-            'ReservationId' => Validator::intType(),
-            'CustomerId'    => Validator::optional(Validator::intType()),
-            'PackageString' => Validator::optional(Validator::stringType()),
-            'Available'     => Validator::optional(Validator::boolType()),
-            'Comment'       => Validator::optional(Validator::stringType())
+            'ReservationId'   => Validator::intType(),
+            'CustomerId'      => Validator::optional(Validator::intType()),
+            'Approved'        => Validator::optional(Validator::boolType()),
+            'Response'        => Validator::optional(Validator::stringType()),
+            'Authorization'   => Validator::optional(Validator::stringType()),
+            'ResponseMessage' => Validator::optional(Validator::stringType()),
+            'Amount'          => Validator::optional(Validator::numeric()),
+            'EmailResult'     => Validator::optional(Validator::stringType()),
+            'Result'          => Validator::optional(Validator::stringType()),
+            'PackageString'   => Validator::optional(Validator::stringType()),
+            'Available'       => Validator::optional(Validator::boolType()),
+            'Comment'         => Validator::optional(Validator::stringType())
         ];
     }
 }
