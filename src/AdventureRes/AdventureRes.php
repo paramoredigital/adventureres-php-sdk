@@ -7,6 +7,8 @@
 
 namespace AdventureRes;
 
+use AdventureRes\Services\AdventureResCustomerService;
+use AdventureRes\Services\AdventureResPackageService;
 use AdventureRes\Services\AdventureResReservationService;
 use AdventureRes\Services\AdventureResServiceService;
 
@@ -20,7 +22,7 @@ class AdventureRes extends AbstractAdventureResBase
     /**
      * The current version of the SDK
      */
-    const VERSION = '1.0';
+    const VERSION = '1.2';
     /**
      * The API version that this SDK is compatible with.
      */
@@ -57,6 +59,16 @@ class AdventureRes extends AbstractAdventureResBase
     }
 
     /**
+     * A shortcut method to get an instance of the Service service
+     *
+     * @return AdventureResPackageService
+     */
+    public function package()
+    {
+        return new AdventureResPackageService($this->app);
+    }
+
+    /**
      * A shortcut method to get an instance of the Reservation service
      *
      * @return AdventureResReservationService
@@ -64,6 +76,16 @@ class AdventureRes extends AbstractAdventureResBase
     public function reservation()
     {
         return new AdventureResReservationService($this->app);
+    }
+
+    /**
+     * A shortcut method to get an instance of the Service service
+     *
+     * @return AdventureResCustomerService
+     */
+    public function customer()
+    {
+        return new AdventureResCustomerService($this->app);
     }
 
     /**
