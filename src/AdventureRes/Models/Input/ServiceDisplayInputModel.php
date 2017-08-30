@@ -25,7 +25,7 @@ class ServiceDisplayInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ServiceId' => Validator::intType()
+            'ServiceId' => Validator::intType()
         ];
     }
 }

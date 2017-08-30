@@ -25,8 +25,8 @@ class ReservationPromoCodeAddInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType(),
-          'PromoCode'     => Validator::stringType()
+            'ReservationId' => Validator::intType(),
+            'PromoCode'     => Validator::stringType()
         ];
     }
 

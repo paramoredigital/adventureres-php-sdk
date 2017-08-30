@@ -7,18 +7,19 @@
 
 namespace AdventureRes\Models\Input;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
  * Class PackageAvailabilityInputModel
  * @package AdventureRes\Models\Input
+ * @property int $PackageId Optional
  * @property int $PackageGroupId
- * @property string $ResDate
- * @property int $AdultQty Required. Default value is 0.
- * @property int $YouthQty Required. Default value is 0.
- * @property int $Units Required. Default value is 0.
+ * @property string $ResDate Date format is m/d/Y
+ * @property int $LocationId
+ * @property int $AdultQty Default value is 0.
+ * @property int $YouthQty Default value is 0.
+ * @property int $Units Default value is 0.
  */
 class PackageAvailabilityInputModel extends AbstractAdventureResModel
 {
@@ -42,12 +43,16 @@ class PackageAvailabilityInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
+            'PackageId'      => Validator::optional(Validator::intType()),
             'PackageGroupId' => Validator::intType(),
+            'ResDate'        => Validator::date('m/d/Y'),
+            'LocationId'     => Validator::intType(),
             'AdultQty'       => Validator::intType(),
             'YouthQty'       => Validator::intType(),
             'Units'          => Validator::intType(),
-            'ResDate'        => Validator::date('m/d/Y'),
         ];
     }
 
 }
+
+/* End of PackageAvailabilityInputModel.php */

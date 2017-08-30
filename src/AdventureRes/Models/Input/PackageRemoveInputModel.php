@@ -7,14 +7,14 @@
 
 namespace AdventureRes\Models\Input;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
  * Class PackageRemoveInputModel
  * @package AdventureRes\Models\Input
- * @property int $PackageId
+ * @property int $ReservationId
+ * @property int $ReservationPackageItemId
  */
 class PackageRemoveInputModel extends AbstractAdventureResModel
 {
@@ -24,7 +24,10 @@ class PackageRemoveInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-            'PackageId' => Validator::intType()
+            'ReservationId' => Validator::intType(),
+            'ReservationPackageItemId' => Validator::intType()
         ];
     }
 }
+
+/* End of PackageRemoveInputModel.php */

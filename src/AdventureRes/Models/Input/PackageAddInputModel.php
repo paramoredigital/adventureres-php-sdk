@@ -7,20 +7,19 @@
 
 namespace AdventureRes\Models\Input;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
  * Class PackageAddInputModel
  * @package AdventureRes\Models\Input
- * @property int $ReservationId Set a reservation ID if one has already been created. Otherwise, set to 0.
- * @property int $CustomerId Set a customer ID if one has already been created. Otherwise, set to 0.
+ * @property int $ReservationId Set a reservation ID if one has already been created. Default value is 0.
+ * @property int $CustomerId Set a customer ID if one has already been created. Default value is 0.
  * @property int $PackageId
  * @property string $ResDate Date format should be m/d/Y.
- * @property int $AdultQty Required. Default value is 0.
- * @property int $YouthQty Required. Default value is 0.
- * @property int $Units Required. Default value is 0.
+ * @property int $AdultQty Default value is 0.
+ * @property int $YouthQty Default value is 0.
+ * @property int $Units Default value is 0.
  */
 class PackageAddInputModel extends AbstractAdventureResModel
 {
@@ -56,3 +55,5 @@ class PackageAddInputModel extends AbstractAdventureResModel
         ];
     }
 }
+
+/* End of PackageAddInputModel.php */

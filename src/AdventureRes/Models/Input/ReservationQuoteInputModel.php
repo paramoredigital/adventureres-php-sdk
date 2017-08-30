@@ -7,7 +7,6 @@
 
 namespace AdventureRes\Models\Input;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
@@ -15,6 +14,7 @@ use Respect\Validation\Validator;
  * Class ReservationQuoteInputModel
  * @package AdventureRes\Models\Input
  * @property int $ReservationId
+ * @property int $LocationId
  */
 class ReservationQuoteInputModel extends AbstractAdventureResModel
 {
@@ -22,7 +22,10 @@ class ReservationQuoteInputModel extends AbstractAdventureResModel
     {
         return [
             'ReservationId' => Validator::intType(),
+            'LocationId' => Validator::intType()
         ];
     }
 
 }
+
+/* End of ReservationQuoteInputModel.php */

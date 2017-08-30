@@ -24,7 +24,7 @@ class ReservationItineraryInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-          'ReservationId' => Validator::intType()
+            'ReservationId' => Validator::intType()
         ];
     }
 }

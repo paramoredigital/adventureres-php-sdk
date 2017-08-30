@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2017 AdventureRes
+ * Copyright 2016 AdventureRes
  *
  * @license GPL-3.0+
  */
@@ -11,12 +11,13 @@ use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
- * Class PackageGroupInputModel
+ * Class ConfirmationInputModel
+ *
  * @package AdventureRes\Models\Input
- * @property string $ResDate
+ * @property int $ReservationId
  * @property int $LocationId
  */
-class PackageGroupInputModel extends AbstractAdventureResModel
+class ReservationConfirmationInputModel extends AbstractAdventureResModel
 {
     /**
      * {@inheritdoc}
@@ -24,11 +25,10 @@ class PackageGroupInputModel extends AbstractAdventureResModel
     protected function defineAttributes()
     {
         return [
-            'ResDate' => Validator::date('m/d/Y'),
-            'LocationId' => Validator::intType()
+            'ReservationId' => Validator::intType(),
+            'LocationId'    => Validator::intType()
         ];
     }
-
 }
 
-/* End of PackageGroupInputModel.php */
+/* End of ReservationConfirmationInputModel.php */

@@ -7,7 +7,6 @@
 
 namespace AdventureRes\Models\Input;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
@@ -28,3 +27,5 @@ class PackageDisplayInputModel extends AbstractAdventureResModel
         ];
     }
 }
+
+/* End of PackageDisplayInputModel.php */

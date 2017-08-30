@@ -7,59 +7,59 @@
 
 namespace AdventureRes\Models\Input;
 
-
 use AdventureRes\Models\AbstractAdventureResModel;
 use Respect\Validation\Validator;
 
 /**
  * Class CustomerAddInputModel
  * @package AdventureRes\Models\Input
- * @property int $ReservationId
- * @property int $CustomerId
+ * @property int $CustomerId Optional
+ * @property int $ReservationId Optional
  * @property string $FirstName
  * @property string $LastName
  * @property string $OrgName
  * @property string $Address
- * @property string $Address2 Optional
+ * @property string $Address2
  * @property string $City
- * @property string $State
- * @property string $Zip
+ * @property string $State Optional
+ * @property string $Zip Optional
  * @property string $Country
- * @property string $DOB
- * @property int $Age
+ * @property string $DOB Optional
  * @property string $Gender
- * @property string $HomePhone
- * @property string $WorkPhone
- * @property string $CellPhone
+ * @property string $HomePhone Optional
+ * @property string $WorkPhone Optional
+ * @property string $CellPhone Optional
  * @property string $Email
- * @property int $GroupTypeId
- * @property int $HTHId
+ * @property int LocationId Optional
  */
 class CustomerAddInputModel extends AbstractAdventureResModel
 {
     protected function defineAttributes()
     {
         return [
-            'ReservationId' => Validator::optional(Validator::intType()),
             'CustomerId'    => Validator::optional(Validator::intType()),
+            'ReservationId' => Validator::optional(Validator::intType()),
             'FirstName'     => Validator::stringType(),
             'LastName'      => Validator::stringType(),
             'OrgName'       => Validator::stringType(),
             'Address'       => Validator::stringType(),
             'Address2'      => Validator::stringType(),
             'City'          => Validator::stringType(),
-            'State'         => Validator::stringType()->uppercase()->length(2, 2),
-            'Zip'           => Validator::numeric()->length(5),
+            'State'         => Validator::optional(Validator::stringType()->uppercase()->length(2, 2)),
+            'Zip'           => Validator::optional(Validator::numeric()->length(5)),
             'Country'       => Validator::stringType(),
-            'DOB'           => Validator::date('m/d/Y'),
+            'DOB'           => Validator::optional(Validator::date('m/d/Y')),
 //            'Age'           => Validator::intType(),
             'Gender'        => Validator::stringType(),
-            'HomePhone'     => Validator::numeric(),
-            'WorkPhone'     => Validator::numeric(),
-            'CellPhone'     => Validator::numeric(),
+            'HomePhone'     => Validator::optional(Validator::numeric()),
+            'WorkPhone'     => Validator::optional(Validator::numeric()),
+            'CellPhone'     => Validator::optional(Validator::numeric()),
             'Email'         => Validator::email(),
 //            'GroupTypeId'   => Validator::intType(),
 //            'HTHId'         => Validator::intType(),
+            'LocationId' => Validator::optional(Validator::intType()),
         ];
     }
 }
+
+/* End of CustomerAddInputModel.php */
