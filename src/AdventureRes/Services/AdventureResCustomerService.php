@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2017 AdventureRes
  *
@@ -6,7 +7,6 @@
  */
 
 namespace AdventureRes\Services;
-
 
 use AdventureRes\Exceptions\AdventureResSDKException;
 use AdventureRes\Models\Input\CustomerAddInputModel;
@@ -22,7 +22,7 @@ class AdventureResCustomerService extends AbstractAdventureResService
     const CREATE_CUSTOMER_ENDPOINT = '/Insert';
 
     /**
-     * Provides the ability to insert a New Customer Record and optionally tie it to a Reservation.
+     * Provides the ability to insert a new Customer record and optionally tie it to a Reservation.
      *
      * @param CustomerAddInputModel $inputModel
      * @return \AdventureRes\Models\Output\CustomerModel
@@ -38,6 +38,9 @@ class AdventureResCustomerService extends AbstractAdventureResService
 
         if (!$inputModel->CustomerId) {
             $inputModel->CustomerId = $dataHandler->get(AdventureResSessionKeys::CUSTOMER_ID, $defaultValue = 0);
+
+            if(!$inputModel->CustomerId)
+                unset($inputModel->CustomerId);
         }
 
         if (!$inputModel->isValid()) {
@@ -46,7 +49,10 @@ class AdventureResCustomerService extends AbstractAdventureResService
 
         $params                 = $inputModel->getAttributes();
         $params['Session']      = $this->getSessionId();
-        $params['LocationId']   = $this->app->getLocation();
+        if(!isset($params['LocationId']) || !$params['LocationId']) {
+            $params['LocationId']   = $this->app->getLocation();
+        }
+
         $response               = $this->makeApiCall('POST', self::CREATE_CUSTOMER_ENDPOINT, $params);
         $result                 = $response->getDecodedBody();
 
