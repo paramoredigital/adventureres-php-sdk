@@ -57,7 +57,7 @@ class AdventureResSession extends AbstractAdventureResBase
      * AdventureResSession constructor.
 
      *
-*@param AdventureResApp $app
+     * @param AdventureResApp $app
      * @param AdventureResHttpClientInterface|null $client
      */
     public function __construct(AdventureResApp $app, AdventureResHttpClientInterface $client = null)
@@ -70,7 +70,7 @@ class AdventureResSession extends AbstractAdventureResBase
     /**
      * Sets the app in the instance.
      *
-*@param AdventureResApp $app
+     * @param AdventureResApp $app
      */
     public function setApp($app)
     {
@@ -80,7 +80,7 @@ class AdventureResSession extends AbstractAdventureResBase
     /**
      * Sets the HTTP client to be used for all requests.
      *
-*@param AdventureResHttpClientInterface $httpClient
+     * @param AdventureResHttpClientInterface $httpClient
      */
     public function setHttpClient($httpClient)
     {
@@ -91,7 +91,7 @@ class AdventureResSession extends AbstractAdventureResBase
      * Returns a valid Session ID. If a session ID has not been created, it will run the authentication to
      * create one. If a session ID has been created, it will validate it and then return a valid ID.
      *
-*@return string
+     * @return string
      */
     public function getSessionId()
     {
@@ -177,9 +177,13 @@ class AdventureResSession extends AbstractAdventureResBase
         $response = $this->client->sendRequest($request);
         $body     = $response->getDecodedBody();
 
+        if(is_null($body)) {
+            throw new AdventureResSDKException('Unable to login. The API would not authenticate.');
+        }
+
         if ($body[0]->ValidSession === false
-          || preg_match("/error/i", $body[0]->Result
-            || empty($body[0]->Session))
+          || preg_match("/error/i", $body[0]->Result)
+          || empty($body[0]->Session)
         ) {
             throw new AdventureResSDKException('Unable to login. The API returned the following result: ' . $body[0]->Result);
         }
