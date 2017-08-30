@@ -104,7 +104,7 @@ class AdventureResRequest extends AbstractAdventureResBase
     /**
      * Gets the stored session ID.
      *
-*@return string
+     * @return string
      */
     public function getSessionId()
     {
@@ -114,7 +114,7 @@ class AdventureResRequest extends AbstractAdventureResBase
     /**
      * Stores a session ID.
      *
-*@param string $sessionId
+     * @param string $sessionId
      */
     public function setSessionId($sessionId)
     {
@@ -124,7 +124,7 @@ class AdventureResRequest extends AbstractAdventureResBase
     /**
      * Gets the name of the service defined in the request.
      *
-*@return string
+     * @return string
      */
     public function getService()
     {
@@ -134,7 +134,7 @@ class AdventureResRequest extends AbstractAdventureResBase
     /**
      * Stores the name of the service.
      *
-*@param string $service
+     * @param string $service
      */
     public function setService($service)
     {

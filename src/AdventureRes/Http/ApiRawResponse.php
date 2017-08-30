@@ -57,7 +57,7 @@ class ApiRawResponse extends AbstractAdventureResBase
     /**
      * Returns the raw headers from the API response.
      *
-*@return string
+     * @return string
      */
     public function getRawHeaders()
     {
@@ -67,7 +67,7 @@ class ApiRawResponse extends AbstractAdventureResBase
     /**
      * Returns the status code from the API response.
      *
-*@return int|null
+     * @return int|null
      */
     public function getHttpStatusCode()
     {

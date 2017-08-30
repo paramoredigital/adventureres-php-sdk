@@ -47,7 +47,7 @@ class AdventureResCurlHttpClient extends AbstractAdventureResBase implements Adv
     /**
      * AdventureResCurlHttpClient constructor
      *
-*@param AdventureResCurl|null Procedural curl as object
+     * @param AdventureResCurl|null Procedural curl as object
      */
     public function __construct(AdventureResCurl $adventureResCurl = null)
     {
