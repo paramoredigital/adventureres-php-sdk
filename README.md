@@ -95,12 +95,13 @@ $attribute = $model->AdultPrice;
 
 ### Services and Reservations
 
-The SDK is segmented in the same way as the API - by service methods and reservation methods:
+The SDK is segmented in the same way as the API - by service methods, package methods, reservation methods and customer methods:
 
 ```php
 $serviceAvailability = $advRes->service()->getServiceAvailability($inputModel);
-
+$package = $advRes->package()->getPackage($inputModel);
 $costSummary = $advRes->reservation()->getCostSummary($inputModel);
+$newCustomer = $advRes->customer()->createCustomer($inputModel);
 ```
 
 ## Full example

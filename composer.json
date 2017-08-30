@@ -20,6 +20,11 @@
       "name": "Ben Wilkins",
       "email": "bwilkins@paramoredigital.com",
       "role": "Developer - SDK"
+    },
+    {
+      "name": "Cameron West",
+      "email": "cwest@paramoredigital.com",
+      "role": "Developer - SDK"
     }
   ],
   "require": {
