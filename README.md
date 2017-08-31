@@ -1,6 +1,15 @@
 # AdventureRes SDK for PHP
 
-This repository contains the open source PHP SDK that provides an easy way for PHP developers to access the AdventureRes SDK. Full class reference is available [here](http://paramoredigital.github.io/adventureres-php-sdk/docs/). 
+This repository contains the open source PHP Software Development Kit that provides an easy way for PHP developers to communicate with the AdventureRes API. Full class reference is available [here](http://paramoredigital.github.io/adventureres-php-sdk/docs/).
+
+> **Important Note**
+
+This is NOT a plug-and-play store integration with the AdventureRes API. It cannot be used directly with WordPress for instance. To make use of this repository, a developer will be needed to create the store interface and manage the user's path through the checkout experience. There are no design assets, HTML, styles or javascript included in this repository.
+
+Our aim instead is to lay the ground work for accomplishing these things by providing a simple and consistent way to pass data back and forth from your website/application to the AdventureRes system. What we do provide in this repository is a cohesive PHP class that can be used in a wide variety of PHP-based content management systems and PHP platforms. It handles input validation, API endpoint requests, response formatting, error handling, and browser sessions. This allieviates most of the potential errors and addresses many common needs involved with working with the AdventureRes API directly, while preserving the full functionality.
+
+Put simply, this repository is not an ecommerce store -- it's the halfway mark. We built all the pieces to fit, but there is some assembly required.
+
 
 ## Installation
 
@@ -93,7 +102,7 @@ $attribute = $model->getAttribute('AdultPrice');
 $attribute = $model->AdultPrice;
 ```
 
-### Services and Reservations
+### Talking to API Endpoints
 
 The SDK is segmented in the same way as the API - by service methods, package methods, reservation methods and customer methods:
 
